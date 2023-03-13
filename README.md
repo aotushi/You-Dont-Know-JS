@@ -1,65 +1,65 @@
-# You Don't Know JS Yet (book series) - 2nd Edition
+# 你不懂 JS(系列丛书) - 第 2 版
 
-This is a series of books diving deep into the core mechanisms of the JavaScript language. This is the **second edition** of the book series:
+这是一系列深入研究 JavaScript 语言核心机制的系列丛书:
 
 <a href="https://leanpub.com/ydkjsy-get-started"><img src="get-started/images/cover.png" width="75"></a>&nbsp;&nbsp;
 <a href="https://leanpub.com/ydkjsy-scope-closures"><img src="scope-closures/images/cover.png" width="75"></a>&nbsp;&nbsp;...
 
-**To read more about the motivations and perspective behind this book series, check out the [Preface](preface.md).**
+**阅读更多在书籍之后的动机和角度,切换到[扉页](preface.md)**
 
-If you're looking for the previous **first edition** books, [they can be found here](https://github.com/getify/You-Dont-Know-JS/blob/1st-ed/README.md).
+如果你正在寻找之前的**第一版**书籍, [它们可以在这里找到](https://github.com/getify/You-Dont-Know-JS/blob/1st-ed/README.md)
 
-## Titles
+## 标题
 
-I recommend reading the **second edition** books in this order:
+推荐以如下顺序来阅读**第二版**:
 
-* [Get Started](get-started/README.md) | [Buy on Leanpub](https://leanpub.com/ydkjsy-get-started) | [Buy on Amazon](https://www.amazon.com/dp/B084BNMN7T)
-* [Scope & Closures](scope-closures/README.md) | [Buy on Leanpub](https://leanpub.com/ydkjsy-scope-closures) | [Buy on Amazon](https://www.amazon.com/dp/B08634PZ3N)
-* [Objects & Classes](objects-classes/README.md) (draft stable)
-* [Types & Grammar](types-grammar/README.md) (draft in progress)
-* Sync & Async (not yet started)
-* ES.Next & Beyond (not yet started)
+-   [开始](get-started/README.md) | [在 Leanpub 上购买](https://leanpub.com/ydkjsy-get-started) | [亚马逊上购买](https://www.amazon.com/dp/B084BNMN7T)
+-   [作用域 & 闭包](scope-closures/README.md) | [在 Leanpub 上购买](https://leanpub.com/ydkjsy-scope-closures) | [亚马逊上购买](https://www.amazon.com/dp/B08634PZ3N)
+-   [对象 & 类](scope-closures/README.md) | [Buy on Leanpub](https://leanpub.com/ydkjsy-scope-closures) | [Buy on Amazon](https://www.amazon.com/dp/B08634PZ3N)
+-   [类型 & 语法](types-grammar/README.md) (draft in progress)
+-   同步 & 异步(还没开始)
+-   ES.next 与 Beyond(没开始)
 
-If you're looking for the previous **first edition** books, [they can be found here](https://github.com/getify/You-Dont-Know-JS/blob/1st-ed/README.md).
+如果你正在寻找之前的**第一版**书籍, [它们可以在这里找到](https://github.com/getify/You-Dont-Know-JS/blob/1st-ed/README.md)
 
-## Publishing
+## 发布
 
-As always, you'll be able to read these books online here entirely for free.
+像平常一样,你可以在这里完整免费的阅读在线书籍.
 
-This edition of the books is being self-published through [GetiPub](https://geti.pub) publishing. The published books will be made available for sale through normal book retail sources.
+这版书籍将通过[GetiPub](https://geti.pub)来出版. 出版的书籍将通过正常图书零售来源出售.
 
-If you'd like to contribute financially towards the effort (or any of my other OSS efforts) aside from purchasing the published books, please consider these options:
+如果你喜欢通过购买出版书籍来贡献金钱奖励这份努力(或我的任何其他 OSS 努力),请考虑这些选项:
 
-* [Github Sponsorship](https://github.com/users/getify/sponsorship)
-* [Patreon](https://www.patreon.com/getify)
-* [Paypal](https://www.paypal.me/getify)
+-   [Github Sponsorship](https://github.com/users/getify/sponsorship)
+-   [Patreon](https://www.patreon.com/getify)
+-   [Paypal](https://www.paypal.me/getify)
 
-## Contributions
+## 贡献
 
-Please feel free to contribute to the quality of this content by submitting PRs for improvements to code snippets, explanations, etc. While typo fixes are welcomed, they will likely be caught through normal editing/publishing processes, **so please don't worry about them right now.**
+请不要拘束通过提交 PRs 来提高代码片段,解释,等等来为本项目做出贡献.印刷错误修正也是欢迎的, 它们将可能通过平常的编辑/出版过程来捕获, ** 所以现在请不要担心它们.**
 
-Any contributions you make to this effort **are of course greatly appreciated**.
+你做出的任何贡献理都会被十分感激.
 
-But **PLEASE** read the [Contributions Guidelines](CONTRIBUTING.md) carefully before submitting a PR.
+但是**请**在提交一个 PR 前仔细阅读[贡献指南](Contributing.md)
 
-## Thank You To These Wonderful Sponsors
+## 感谢你这些善良的捐助者
 
 [![Frontend Masters Logo (dark)](https://github.com/getify/You-Dont-Know-JS/blob/2nd-ed/external-logos/fem_logo-light.svg)](https://frontendmasters.com#gh-light-mode-only)
 
 [![Frontend Masters Logo (light)](https://github.com/getify/You-Dont-Know-JS/blob/2nd-ed/external-logos/fem_logo.svg)](https://frontendmasters.com#gh-dark-mode-only)
 
-**The first two books of the second edition** are exclusively sponsored by **[Frontend Masters](https://frontendmasters.com)**.
+**第二版的开始两本书**由**[Frontend Masters](https://frontendmasters.com)**独家赞助.
 
-Frontend Masters is the gold standard for top-of-the-line expert training material in frontend-oriented software development. With over 150 courses on all things frontend, this should be your first and only stop for quality video training on HTML, CSS, JS, and related technologies.
+Frontend Masters 是在面向前端软件开发中顶级专业训练资源的黄金标准.在前端上有超过 150 节课程,这应该是你在 HTML,CSS,JS,及相关技术的高质量视频培训的第一站也是唯一一站.
 
-**Note:** I teach [all my workshops](https://frontendmasters.com/kyle-simpson) exclusively through Frontend Masters. If you like this book content, please check out my video training courses.
+**注意:** 我只通过 Frontend Masters 教授[所有我的讲习班](https://frontendmasters.com/kyle-simpson). 如果你喜欢这本书的内容,请转到我的视频培训课程.
 
-I want to extend a warm and deep thanks to Marc Grabanski and the entire Frontend Masters team, not only for their excellent work with the video training platform, but for their unwavering support of me and of the "You Don't Know JS" books!
+我想对 Marc Grabanski 和整个 Frontend Masters 团队提出深深感激,不仅仅是它们在视频培训平台上优秀的工作, 而且是他们对我和'你不了解的 JS'的支持.
 
-----
+---
 
-## License & Copyright
+## 许可和版权
 
-The materials herein are all &copy; 2019-2022 Kyle Simpson.
+此处资料全部 &copy; 2019-2022 Kyle Simpson.
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivs 4.0 Unported License</a>.
