@@ -2,22 +2,21 @@
 
 # 前言
 
-第一次我看见推特为*你不知道的 JS*原创书籍进行广告众筹活动, 我心里想无论这个 Kyle Simpson 是谁,他都可以去死了.我当然知道JavaScript!当时我已经在JavaScript领域和一些科技界的明显大腕工作了好多年, 所以我对这种说法嗤之以鼻.
+第一次我看见推特为*你不知道的 JS*原创书籍进行广告众筹活动, 我心里想无论这个 Kyle Simpson 是谁,他都可以去死了.我当然知道 JavaScript!当时我已经在 JavaScript 领域和一些科技界的明显大腕工作了好多年, 所以我对这种说法嗤之以鼻.
 
+这本书的众筹完成后, 我看到很多人为了读这本书是非常兴奋的并且我也决定瞅一瞅-你知道的, 仅仅是向大家证明我 _不懂_ javascript. 当我深入并仔细阅读这些文本, 我经历了深刻的学习,惊讶,和一点点生气. Kyle 有述说事情来改变我世界观并让我思考直到我相信他说的是正确的的诀窍(尽管我永远不会向他承认)
 
-这本书的众筹完成后, 我看到很多人为了读这本书是非常兴奋的并且我也决定瞅一瞅-你知道的, 仅仅是向大家证明我 *不懂* javascript.
+所以它证明了我不懂 JavaScript. 我不懂为什么我采用了某些模式; 我不懂为什么 JavaScript 在某些情况下表现出这种行为,并且我对我以为的语言差异知之甚少. 很多事情是我不知道我不知道,并且作为这门语言的开发者则是更糟糕.
 
-So it turned out I didn't know JavaScript. I didn't know why I had adopted certain patterns; I didn't know why JavaScript behaves the way it does in certain situations, and I didn't know much of the nuance of the languages that I assumed I did. Many were things I didn't know I didn't know, and I was worse off as a developer for it.
+这就是这套书籍系列伟大之处.这不仅仅是为第一次拾起这门语言的人(尽管它也是为他们提供的); 它为所有想掌控它们工具,想理解它们手艺来龙去脉,想选择解决问题更合适方法的软件匠人.
 
-This is what this book series is great for. It's not just for someone picking up the language for the first time (though it's for them, too); it's for all software craftspeople who want to master their tools, who want to understand the ins and outs of their trade, and who want to select the proper methods for solving problems.
+我欣赏 Kyle 和他的工作的一点是他愉快的不受周围编程世界的时代精神的影响. 那不是说他没意识到社区中发生了什么而是它不会动摇他对恰当问题最好答案的追求. 这经常让他与最新的'最佳实践'不一致, 但是现实中这就的确是你需要的: 一种摆脱了时间影响且只说内在真理的观点.这就是为什么这个系列如此之好的原因. *你不知道的 JS*第一版在多年后仍然精确! 由于 JavaScript 领域变幻的变幻莫测,很少有东西能经得起时间的考验.
 
-The thing I appreciate about Kyle and his work is that he is delightfully uninfluenced by the zeitgeist of the programming world around him. That isn't to say he isn't aware of what's happening in the community but rather that it doesn't sway his pursuit of the best answers to the correct questions. This often has put him at odds with the latest "best practices," but in reality this is exactly what you need: a perspective removed from temporal influence and simply speaking to the underlying truth. That's why this series is so good. The first edition of _You Don't Know JS_ is still accurate, years later! Not many things stand this test of time given the shifting sands of the JavaScript landscape.
+让我们聊一会第一本书自身, _入门_. 你可能尝试跳过他因为你可能认为自己已经'开始了',但是它值得阅读这一章.你会惊讶于在 JavaScript 中基础的构建块中有多少深度,细节和奇怪之处,这对你来说在进入门语言结构探险之前抓住这些基础是非常必要的.
 
-Let's talk a moment about this first book itself, _Get Started_. You may be tempted to skip it as you may think that you already have "gotten started," but it's worth reading this one! You'd be surprised how much depth, nuance, and oddity there is in the underlying building blocks of JavaScript, and it's quite essential for you to grapple with these underpinnings before venturing forward into the constructs of the language. It's exactly the sort of foundation you need, to really know JavaScript.
+所以,为你未来着想,深入挖掘这本书并解锁内部的知识.这些坚实的基础比任何框架都能更好的为你服务;框架来了又走,但我们仍然要写几十年的 JavaScript 本身.保持开放心态并挑战你先入为主的观念.
 
-So, do your future self a favor and dig into this book and unlock the knowledge within. These solid foundations will serve you better than any framework ever will; those come and go but we'll still be writing JavaScript itself for decades to come. Keep an open mind and challenge your preconceived notions.
-
-Because, as I found out myself, you probably don't know JavaScript (yet).
+因为,由于我发现自己,你可能不了解 JavaScript(也)
 
 Brian Holt<br>
 Senior Program Manager<br>
