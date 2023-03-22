@@ -10,15 +10,15 @@
 
 ## 关于此书
 
-I emphasize the word journey because _knowing JS_ is not a destination, it's a direction. No matter how much time you spend with the language, you will always be able to find something else to learn and understand a little better. So don't look at this book as something to rush through for a quick achievement. Instead, patience and persistence are best as you take these first few steps.
+我要强调的是旅程这个词因为*了解 JS*不是终点, 它是一个方向. 无论你在在这门语言上花费了多少时间, 你将总是能找到其它东西来学习和更好地理解. 所以不要把看这本书当做为了快速成就而匆匆完成的事情. 相反,耐心和坚持是你迈出最开始几步时最好的.
 
-Following this background chapter, the rest of the book lays out a high-level map of what you will find as you dig into and study JS with the YDKJSY books.
+在背景章节以后,书籍剩余部分将会为你提供高标准的地图,当通过'你不知道的 JS'深入研究和学习 JS 时候你会发现什么.
 
-In particular, Chapter 4 identifies three main pillars around which the JS language is organized: scope/closures, prototypes/objects, and types/coercion. JS is a broad and sophisticated language, with many features and capabilities. But all of JS is founded on these three foundational pillars.
+尤其是第 4 章确定围绕 JS 语言组织的 3 大支柱: 作用域/闭包,原型/对象,和类型/强制转换. JS 是一门广泛和复杂的语言,拥有很多特性和功能.但是所有的 JS 都是建立在这 3 个基础支柱上的.
 
-Keep in mind that even though this book is titled "Get Started," it's **not intended as a beginner/intro book**. This book's main job is to get you ready for studying JS deeply throughout the rest of the series; it's written assuming you already have familiarity with JS over at least several months experience before moving on in YDKJSY. So to get the most out of _Get Started_, make sure you spend plenty of time writing JS code to build up your experience.
+记住即使这本书被命名为'入门',它也不是准备作为初学者/入门的书.这本书的主要任务是做好准备来深入学习剩余系列的 JS; 它假设你已经熟悉 JS 至少几个月,在继续'你不知道的 JS'之前. 所以为了好好利用*入门*章节,确保你花足够多时间写 JS 代码来来构建经验.
 
-Even if you've already written a lot of JS before, this book should not be skimmed over or skipped; take your time to fully process the material here. **A good start always depends on a solid first step.**
+即使之前您已经写了很多 JS,这本书不应该被略读或跳过; 花时间充分掌握这里的知识. **好的开始总是依赖于坚实的第一步**
 
 ## What's With That Name?
 
