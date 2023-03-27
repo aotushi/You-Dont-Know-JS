@@ -20,29 +20,29 @@
 
 即使之前您已经写了很多 JS,这本书不应该被略读或跳过; 花时间充分掌握这里的知识. **好的开始总是依赖于坚实的第一步**
 
-## What's With That Name?
+## 关于那个名字是怎么回事?
 
-The name JavaScript is probably the most mistaken and misunderstood programming language name.
+JavaScript 这个名字可能是最被误解的编程语言名称.
 
-Is this language related to Java? Is it only the script form for Java? Is it only for writing scripts and not real programs?
+这门语言和 Java 有关吗? 它只是 Java 的脚本形式吗?它是只用来写脚本和并非真正的编程语言吗?
 
-The truth is, the name JavaScript is an artifact of marketing shenanigans. When Brendan Eich first conceived of the language, he code-named it Mocha. Internally at Netscape, the brand LiveScript was used. But when it came time to publicly name the language, "JavaScript" won the vote.
+事实是, JavaScript 这个名字是市场恶作剧的人为结果. 当 Brendan Eich 第一次构想出这门语言时, 他给它起了个 Mocha 的代号. 在 Netscape 内部, LiveScript 的品牌已经使. 但是当公开命名语言时, 'JavaScript'赢得了投票.
 
-Why? Because this language was originally designed to appeal to an audience of mostly Java programmers, and because the word "script" was popular at the time to refer to lightweight programs. These lightweight "scripts" would be the first ones to embed inside of pages on this new thing called the web!
+Why?因为这门语言本来被设计来吸引大多数 Java 程序员观众,并且因为'script'这个单词在那个时间是受欢迎的用来指向轻量级程序. 这些轻量级'scripts'将会是第一批插入被称为新事物的 web 上的东西.
 
-In other words, JavaScript was a marketing ploy to try to position this language as a palatable alternative to writing the heavier and more well-known Java of the day. It could just as easily have been called "WebJava," for that matter.
+换句话说,JavaScript 是种营销策略,旨在将这门语言定位为当时写更重更知名的 Java 的合适的替代品. 由于这个关系,它可以和容易的被称为'WebJava'.
 
-There are some superficial resemblances between JavaScript's code and Java code. Those similarities don't particularly come from shared development, but from both languages targeting developers with assumed syntax expectations from C (and to an extent, C++).
+在 JavaScript 的代码和 Java 代码之间有一些表面的相似. 这个相似性并非特别来自共享开发,而是来自两种语言,针对开发人员,他们假定语法期望来自 C(在某种程度上,C++).
 
-For example, we use the `{` to begin a block of code and the `}` to end that block of code, just like C/C++ and Java. We also use the `;` to punctuate the end of a statement.
+举个例子, 我们用`{`开始代码块,`}`来结束代码块,就像 C/C++和 Java. 我们也用`;`来强调一个语句的结束;
 
-In some ways, legal relationships run even deeper than the syntax. Oracle (via Sun), the company that still owns and runs Java, also owns the official trademark for the name "JavaScript" (via Netscape). This trademark is almost never enforced, and likely couldn't be at this point.
+在某种程度上,法规关系比语法更深.甲骨文(通过 Sun),依然掌控和运营 Java 的公司, 也掌控'JavaScript'这个名字的的商标.这个商标机会从未被执行过,而且很可能在这点上不可能执行.(?)
 
-For these reasons, some have suggested we use JS instead of JavaScript. That is a very common shorthand, if not a good candidate for an official language branding itself. Indeed, these books use JS almost exclusively to refer to the language.
+由于这些原因,一些人建议我们用 JS 代替 JavaScript. 这是一个非常通用的简写,如果不是一个正式语言品牌自身的良好候选者.实际上,书籍几乎只使用 JS 来代指这门语言.
 
-Further distancing the language from the Oracle-owned trademark, the official name of the language specified by TC39 and formalized by the ECMA standards body is **ECMAScript**. And indeed, since 2016, the official language name has also been suffixed by the revision year; as of this writing, that's ECMAScript 2019, or otherwise abbreviated ES2019.
+进一步将语言和 Oracle 拥有的商标区分开发, TC39 指定并由 ECMA 标准机构正式确定的语言的正式名称是 **ECMAScript**。事实上,自从 2016 年开始,这个正式的语言名称也以修订年为后缀;在撰写本文时,是 ECMAScript2019,或者缩写为 ES2019.
 
-In other words, the JavaScript/JS that runs in your browser or in Node.js, is _an_ implementation of the ES2019 standard.
+换句话说,运行在你浏览器或 Node.js 中的 JavaScript/JS,是 ES2019 标准的一个实现.
 
 | NOTE:                                                                                                                                                                          |
 | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
