@@ -44,27 +44,27 @@ Why?因为这门语言本来被设计来吸引大多数 Java 程序员观众,并
 
 换句话说,运行在你浏览器或 Node.js 中的 JavaScript/JS,是 ES2019 标准的一个实现.
 
-| NOTE:                                                                                                                                                                          |
-| :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Don't use terms like "JS6" or "ES8" to refer to the language. Some do, but those terms only serve to perpetuate confusion. "ES20xx" or just "JS" are what you should stick to. |
+| 笔记:                                                                                                                    |
+| :----------------------------------------------------------------------------------------------------------------------- |
+| 不要用例如'JS6'或'ES8'的术语代指这门语言. 已有部分人这样做了,这些称呼只会导致长期的困惑. 'ES20XX'或仅'JS'是你应该坚持的. |
 
-Whether you call it JavaScript, JS, ECMAScript, or ES2019, it's most definitely not a variant of the Java language!
+无论是你称呼它为 JavaScript, JS, ECMAScript, 或 ES2019, 它绝对不是一 Java 语言的翻版.
 
-> "Java is to JavaScript as ham is to hamster." --Jeremy Keith, 2009
+> "Java 对于 JavaScript 就像 ham(火腿)对于 hamster(仓鼠)." --Jeremy Keith, 2009
 
-## Language Specification
+## 语言规范 Language Specification
 
-I mentioned TC39, the technical steering committee that manages JS. Their primary task is managing the official specification for the language. They meet regularly to vote on any agreed changes, which they then submit to ECMA, the standards organization.
+我提到的 TC39, 管理 JS 的技术指导委员会. 它们的首要任务是管理语言的官方规范.它们按时开会来为已经同意的更改进行投票, 它们将提交到 ECMA, 这个标准组织.
 
-JS's syntax and behavior are defined in the ES specification.
+JS 的语法和行为在 ES 规范中定义.
 
-ES2019 happens to be the 10th major numbered specification/revision since JS's inception in 1995, so in the specification's official URL as hosted by ECMA, you'll find "10.0":
+ES2019 碰巧是第 10 个主要编号规范/修正自从 1995 年 JS 发布以来, 所以由 ECMA 托管的规范的官方 URL 中, 你将会找到'10.0'.
 
 https://www.ecma-international.org/ecma-262/10.0/
 
-The TC39 committee is comprised of between 50 and about 100 different people from a broad section of web-invested companies, such as browser makers (Mozilla, Google, Apple) and device makers (Samsung, etc). All members of the committee are volunteers, though many of them are employees of these companies and so may receive compensation in part for their duties on the committee.
+TC39 委员会由 50 到大概 100 个来自广泛网络投资公司的人组成, 例如浏览器厂商(Mozilla,Google, Apple)和设备厂商(三星等). 委员会所有成员是志愿者, 尽管它们中的很多人是这些公司的员工,因此可能会因为在委员会职责而获得补偿.
 
-TC39 meets generally about every other month, usually for about three days, to review work done by members since the last meeting, discuss issues, and vote on proposals. Meeting locations rotate among member companies willing to host.
+TC39 会议通常是每隔一个月,通常为期大约三天,来回顾自上月来成员完成的工作,讨论问题,且对提案投票. 会议地点在愿意组织的会员间轮换.
 
 All TC39 proposals progress through a five-stage process—of course, since we're programmers, it's 0-based!—Stage 0 through Stage 4. You can read more about the Stage process here: https://tc39.es/process-document/
 
