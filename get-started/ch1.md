@@ -297,17 +297,17 @@ if (!Promise.prototype.finally) {
 | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | 这只是“final（..） 的基本（不完全符合规范）polyfill 的简单说明`. 不要在你的代码中使用这个polyfill; 无论在哪里总是使用健壮,正式的polyfill, 就像在ES-Shim中polyfill/shims的集合. |
 
-The `if` statement protects the polyfill definition by preventing it from running in any environment where the JS engine has already defined that method. In older environments, the polyfill is defined, but in newer environments the `if` statement is quietly skipped.
+`if`语句通过阻止polyfill在JS引擎已经定义其方法的环境中执行,来保护polyfill定义.在旧环境中, polyfill已经定义,但在新环境中`if`语句会安静的跳过.
 
-Transpilers like Babel typically detect which polyfills your code needs and provide them automatically for you. But occasionally you may need to include/define them explicitly, which works similar to the snippet we just looked at.
+像Babel之类的编译器通常会检测你的代码需要的polyfills并且自动提供给你. 但是偶然情况下你可能需要精确的包含/定义它们, 与我们刚看过的snippet的作用类似.
 
-Always write code using the most appropriate features to communicate its ideas and intent effectively. In general, this means using the most recent stable JS version. Avoid negatively impacting the code's readability by trying to manually adjust for the syntax/API gaps. That's what tools are for!
+始终以最合适的特点来编写代码,以有效传达意图和目的.通常来说,这意味着使用最稳定的JS版本. 通过尝试手动适应语法/api差距以避免影响代码的可读性. 这就是工具的目的.
 
-Transpilation and polyfilling are two highly effective techniques for addressing that gap between code that uses the latest stable features in the language and the old environments a site or application needs to still support. Since JS isn't going to stop improving, the gap will never go away. Both techniques should be embraced as a standard part of every JS project's production chain going forward.
+转译器和补丁是两个最有效的技术来解决使用语言的最新稳定特征和旧环境中网站或应用需要依然支持代码之间的代沟.因为JS不会停止发展,代沟也不会消失.两种技术应该作为每个JS项目生产链的标准部分.
 
-## What's in an Interpretation?
+## 解析器中是什么?
 
-A long-debated question for code written in JS: is it an interpreted script or a compiled program? The majority opinion seems to be that JS is an interpreted (scripting) language. But the truth is more complicated than that.
+在JS中编写代码的长期问题是: 它是一个解释节本或者是编译程序?主流的意见看起来JS是一种解释(脚本)语言.但是事实比这个复杂.
 
 For much of the history of programming languages, "interpreted" languages and "scripting" languages have been looked down on as inferior compared to their compiled counterparts. The reasons for this acrimony are numerous, including the perception that there is a lack of performance optimization, as well as dislike of certain language characteristics, such as scripting languages generally using dynamic typing instead of the "more mature" statically typed languages.
 
