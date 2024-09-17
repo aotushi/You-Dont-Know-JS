@@ -309,13 +309,14 @@ if (!Promise.prototype.finally) {
 
 在JS中编写代码的长期问题是: 它是一个解释节本或者是编译程序?主流的意见看起来JS是一种解释(脚本)语言.但是事实比这个复杂.
 
-For much of the history of programming languages, "interpreted" languages and "scripting" languages have been looked down on as inferior compared to their compiled counterparts. The reasons for this acrimony are numerous, including the perception that there is a lack of performance optimization, as well as dislike of certain language characteristics, such as scripting languages generally using dynamic typing instead of the "more mature" statically typed languages.
+在编程语言的大多数历史情况中,'解释型'语言和'脚本型'语言在与编译型语言相比,一直被视为劣等. 这种态度的原因很多,包括缺少性能优化的感觉,以及不喜欢某些语言特性,例如脚本语言通常使用动态语言类型而不是更成熟的静态类型语言.
 
-Languages regarded as "compiled" usually produce a portable (binary) representation of the program that is distributed for execution later. Since we don't really observe that kind of model with JS (we distribute the source code, not the binary form), many claim that disqualifies JS from the category. In reality, the distribution model for a program's "executable" form has become drastically more varied and also less relevant over the last few decades; to the question at hand, it doesn't really matter so much anymore what form of a program gets passed around.
+被认为是'编译型'的语言通常生成程序的可移植(二进制)表现形式,该表现形式被分发以供以后执行.因为我们不能实际上观察到JS的这种模式(我们分发源代码,而不是二进制形式), 很多人声称从目录中取消JS的资格. 实际上,程序的'可执行'形式的分发模型已经变得非常多样化,而且相关性也变得越来越低.对于手头上的问题,传递什么形式的程序已经不再重要.
 
-These misinformed claims and criticisms should be set aside. The real reason it matters to have a clear picture on whether JS is interpreted or compiled relates to the nature of how errors are handled.
+这些错误的主张和批评应该被置于一边. 清楚了解JS是解释还是编译的真正原因与处理错误的方式有关。
 
 Historically, scripted or interpreted languages were executed in generally a top-down and line-by-line fashion; there's typically not an initial pass through the program to process it before execution begins (see Figure 1).
+从历史上看，脚本或解释性语言通常以自上而下和逐行的方式执行;在执行开始之前，通常不会通过进程进行初始传递来处理它（参见图 1）。
 
 <figure>
     <img src="images/fig1.png" width="650" alt="Interpreting a script to execute it" align="center">
@@ -323,9 +324,9 @@ Historically, scripted or interpreted languages were executed in generally a top
     <br><br>
 </figure>
 
-In scripted or interpreted languages, an error on line 5 of a program won't be discovered until lines 1 through 4 have already executed. Notably, the error on line 5 might be due to a runtime condition, such as some variable or value having an unsuitable value for an operation, or it may be due to a malformed statement/command on that line. Depending on context, deferring error handling to the line the error occurs on may be a desirable or undesirable effect.
+在脚本或解释型语言中,程序中第5行的错误将不会被发现知道前4行被执行.记住,第5行的错误可能因为运行时条件,例如变量或值有一个对执行来说不合适的值,或者它可能改行不合法生命/命令.根据上下文,将错误处理延迟到发生错误的行可能是可取的,也可能是不可取的.
 
-Compare that to languages which do go through a processing step (typically, called parsing) before any execution occurs, as illustrated in Figure 2:
+将其与在执行任何执行之前经历处理步骤（通常称为解析）的语言进行比较，如图 2 所示：
 
 <figure>
     <img src="images/fig2.png" width="650" alt="Parsing, compiling, and executing a program" align="center">
@@ -333,37 +334,38 @@ Compare that to languages which do go through a processing step (typically, call
     <br><br>
 </figure>
 
-In this processing model, an invalid command (such as broken syntax) on line 5 would be caught during the parsing phase, before any execution has begun, and none of the program would run. For catching syntax (or otherwise "static") errors, generally it's preferred to know about them ahead of any doomed partial execution.
+在这个进行模型中,在解析阶段,第5行上一个不合法命令(例如破坏性语法)将会被捕获,在任意执行开始之前,程序不会执行.对于捕获语法错误(或其它'静态')错误,通常最好在任何注定要失败的执行之前了解它们.
 
-So what do "parsed" languages have in common with "compiled" languages? First, all compiled languages are parsed. So a parsed language is quite a ways down the road toward being compiled already. In classic compilation theory, the last remaining step after parsing is code generation: producing an executable form.
+解析语言与编译型语言有什么共同点?第一,所有编译型语言都是解析的.所以一个解析型语言距离编译型语言还有很长的路要走.在经典编译理论中,在解析后最后保留的步骤是代码生成: 生成可执行形式.
 
 Once any source program has been fully parsed, it's very common that its subsequent execution will, in some form or fashion, include a translation from the parsed form of the program—usually called an Abstract Syntax Tree (AST)—to that executable form.
+一旦任意源代码被完全解析,普遍的是它随后的执行,以一些形式,包括从称作抽象语法树(AST)的解析形式到执行形式的翻译.
 
-In other words, parsed languages usually also perform code generation before execution, so it's not that much of a stretch to say that, in spirit, they're compiled languages.
+换句话说,解析型语言通常在执行前也执行代码生成,所以好不夸张的说,在精神上,它们是编译型语言.
 
-JS source code is parsed before it is executed. The specification requires as much, because it calls for "early errors"—statically determined errors in code, such as a duplicate parameter name—to be reported before the code starts executing. Those errors cannot be recognized without the code having been parsed.
+JS源代码在执行前会被解析. 该规范要求同样多，因为它要求在代码开始执行之前报告“早期错误”，即代码中静态确定的错误，例如重复的参数名称。如果代码未被解析，则无法识别这些错误。
 
-So **JS is a parsed language**, but is it _compiled_?
+所以**JS是解析型语言**, 但是它也是_编译型_吗?
 
-The answer is closer to yes than no. The parsed JS is converted to an optimized (binary) form, and that "code" is subsequently executed (Figure 2); the engine does not commonly switch back into line-by-line execution (like Figure 1) mode after it has finished all the hard work of parsing—most languages/engines wouldn't, because that would be highly inefficient.
+答案比不是更接近是. 解析的JS转换为优化(二进制)形式,并且代码随后执行(Figure 2); 引擎在完成所有艰苦的解析工作后,通常不会切换回逐行执行(例如Figure 1)模式, 大多数语言/引擎不会,因为那样效率非常低.
 
-To be specific, this "compilation" produces a binary byte code (of sorts), which is then handed to the "JS virtual machine" to execute. Some like to say this VM is "interpreting" the byte code. But then that means Java, and a dozen other JVM-driven languages, for that matter, are interpreted rather than compiled. Of course, that contradicts the typical assertion that Java/etc are compiled languages.
+具体来说, 编译会生成二进制代码,其之后会被交给'JS虚拟机'来执行. 一些人喜欢说这个虚拟机会'解析'字节码.但是那也就意味着Java,和其它JVM驱动的语言,由于这个关系,是解析型而不是编译型. 当然, 这与 Java/etc 是编译语言的典型断言相矛盾。
 
-Interestingly, while Java and JavaScript are very different languages, the question of interpreted/compiled is pretty closely related between them!
+有意思的是, Java和JS是不同的语言,解释型/编译型的问题在它们之间是非常接近的.
 
-Another wrinkle is that JS engines can employ multiple passes of JIT (Just-In-Time) processing/optimization on the generated code (post parsing), which again could reasonably be labeled either "compilation" or "interpretation" depending on perspective. It's actually a fantastically complex situation under the hood of a JS engine.
+另一个问题是,JS引擎可以对生成的代码(后解析)进行多次JIT(即时)处理/优化,根据不同角度,这同样可以合理地标记为'编译'或'解释'. 在JS引擎的引擎盖下,这实际上是一个非常复杂的情况.
 
-So what do these nitty-gritty details boil down to? Step back and consider the entire flow of a JS source program:
+那么这些细节归结为什么呢?退后一步,考虑一下JS源进程的整个流程:
 
-1. After a program leaves a developer's editor, it gets transpiled by Babel, then packed by Webpack (and perhaps half a dozen other build processes), then it gets delivered in that very different form to a JS engine.
+1. 编写完程序之后,通过Babel转译,之后通过Webpack打包(可能还有其它6个进程),然后以不同形式分发到JS引擎.
 
-2. The JS engine parses the code to an AST.
+2. JS引擎解析代码为AST.
 
-3. Then the engine converts that AST to a kind-of byte code, a binary intermediate representation (IR), which is then refined/converted even further by the optimizing JIT compiler.
+3. 之后引擎转换AST为一种字节码, 二进制中间表示(IR), 之后被优化的JIT编译器进一步优化/转换.
 
-4. Finally, the JS VM executes the program.
+4. 最后, JS虚拟机执行程序.
 
-To visualize those steps, again:
+视觉化以上步骤:
 
 <figure>
     <img src="images/fig3.png" width="650" alt="Steps of JS compilation and execution" align="center">
@@ -371,53 +373,56 @@ To visualize those steps, again:
     <br><br>
 </figure>
 
-Is JS handled more like an interpreted, line-by-line script, as in Figure 1, or is it handled more like a compiled language that's processed in one-to-several passes first, before execution (as in Figures 2 and 3)?
+JS处理模式像是一个逐行解释脚本,如图1,或者它的处理模型像编译语言,在执行前(像是图2,3)中进行1对多处理?
 
-I think it's clear that in spirit, if not in practice, **JS is a compiled language**.
+我认为很明显，在精神上，如果不在实践中，**JS 是一种编译型语言**。
 
 And again, the reason that matters is, since JS is compiled, we are informed of static errors (such as malformed syntax) before our code is executed. That is a substantively different interaction model than we get with traditional "scripting" programs, and arguably more helpful!
+此外,有关的原因是,既然JS是编译的,我们会在代码执行前被通知静态错误(例如非法格式的语法). 
 
-### Web Assembly (WASM)
+### Web汇编 (WASM)
 
-One dominating concern that has driven a significant amount of JS's evolution is performance, both how quickly JS can be parsed/compiled and how quickly that compiled code can be executed.
+推动 JS 大量发展的一个主要问题是性能，包括 JS 的解析 / 编译速度以及编译后的代码的执行速度。
 
-In 2013, engineers from Mozilla Firefox demonstrated a port of the Unreal 3 game engine from C to JS. The ability for this code to run in a browser JS engine at full 60fps performance was predicated on a set of optimizations that the JS engine could perform specifically because the JS version of the Unreal engine's code used a style of code that favored a subset of the JS language, named "ASM.js".
+在2013年, Mozilla Firefox浏览器引擎演示虚幻 3 游戏引擎从 C 到 JS 的移植.运行在浏览器JS引擎中的代码以60fps性能预示JS引擎可以执行特性优化的能力,因为虚幻引擎使用的代码样式偏向于名为'ASM.js'的风格代码.
 
-This subset is valid JS written in ways that are somewhat uncommon in normal coding, but which signal certain important typing information to the engine that allow it to make key optimizations. ASM.js was introduced as one way of addressing the pressures on the runtime performance of JS.
+这个子集是有效的JS,其编写方式在正常编码中有些不常见,但是它向引擎发出某些重要的类型信息信号,允许它进行关键优化.ASM.js的引入是解决JS运行时性能压力的一种方式.
 
-But it's important to note that ASM.js was never intended to be code that was authored by developers, but rather a representation of a program having been transpiled from another language (such as C), where these typing "annotations" were inserted automatically by the tooling.
+需要记住的是ASM.js从来不打算被开发者编码,而是从另一种语言(例如C)转译而来的进程表示形式,这些输入的注释会被工具自动插入.
 
-Several years after ASM.js demonstrated the validity of tooling-created versions of programs that can be processed more efficiently by the JS engine, another group of engineers (also, initially, from Mozilla) released Web Assembly (WASM).
+在ASM.js证明了被工具创建的程序版本可以被JS引擎执行的更有效率, 另一组工程师（最初也来自 Mozilla）发布了 Web Assembly （WASM）。
 
-WASM is similar to ASM.js in that its original intent was to provide a path for non-JS programs (C, etc.) to be converted to a form that could run in the JS engine. Unlike ASM.js, WASM chose to additionally get around some of the inherent delays in JS parsing/compilation before a program can execute, by representing the program in a form that is entirely unlike JS.
+在提供一个路径为非JS程序(例如C)转换为能在JS引擎中运行的形式上,WASM与ASM.js的目的是相似的.不像ASM.js,WASM选择绕过在程序执行前JS解析/编译的继承延迟,通过使用一种完全不像JS的程序形式.
 
-WASM is a representation format more akin to Assembly (hence, its name) that can be processed by a JS engine by skipping the parsing/compilation that the JS engine normally does. The parsing/compilation of a WASM-targeted program happen ahead of time (AOT); what's distributed is a binary-packed program ready for the JS engine to execute with very minimal processing.
+WASM是一种更接近汇编的表示形式,跳过JS引擎平常做的解析/编译来执行的. 解析/编译WASM向的程序在(AOT)时间之前; 分发二进制包程序来为JS引擎执行最小进程.
 
-An initial motivation for WASM was clearly the potential performance improvements. While that continues to be a focus, WASM is additionally motivated by the desire to bring more parity for non-JS languages to the web platform. For example, if a language like Go supports threaded programming, but JS (the language) does not, WASM offers the potential for such a Go program to be converted to a form the JS engine can understand, without needing a threads feature in the JS language itself.
+WASM最初的动机是而然的性能提升. 然而继续会被聚焦,WASM 的另一个动机是希望为 Web 平台带来更多非 JS 语言的奇偶校验。例如,如果一个语言例如Go,其支持线程编程,但是JS语言不支持,WASM提供Go程序转换为JS引擎能理解的语言,不需要在JS语言自身需要线程功能.
 
-In other words, WASM relieves the pressure to add features to JS that are mostly/exclusively intended to be used by transpiled programs from other languages. That means JS feature development can be judged (by TC39) without being skewed by interests/demands in other language ecosystems, while still letting those languages have a viable path onto the web.
+换句话说,WASM减轻了向JS中添加功能的压力,这些特性主要是专门为从其他语言编译的程序使用的。这意味着 JS 功能开发可以被评判（通过 TC39），而不会被其他语言生态系统中的利益/需求所扭曲，同时仍然让这些语言有一条可行的路径进入 Web。
 
-Another perspective on WASM that's emerging is, interestingly, not even directly related to the web (W). WASM is evolving to become a cross-platform virtual machine (VM) of sorts, where programs can be compiled once and run in a variety of different system environments.
+另一个在WASM上的视角是,和Web不直接相关.WASM正在进化为一个化平台虚拟机,程序可以被编译一次并且在不同系统环境中运行.
 
-So, WASM isn't only for the web, and WASM also isn't JS. Ironically, even though WASM runs in the JS engine, the JS language is one of the least suitable languages to source WASM programs with, because WASM relies heavily on static typing information. Even TypeScript (TS)—ostensibly, JS + static types—is not quite suitable (as it stands) to transpile to WASM, though language variants like AssemblyScript are attempting to bridge the gap between JS/TS and WASM.
+所以,WASM不知对web,并且WASM也不是JS.讽刺的是,即使WASM在JS引擎中运行,JS语言也是一种最合适追踪WASM程序的语言,因为WASM重度依赖静态输入信息. 即使TS, JS+静态类型,转为以WASM不是很合适,尽管不同的语言像AssemblyScript尝试在JS/TS和WASM弥补差距.
 
-This book isn't about WASM, so I won't spend much more time discussing it, except to make one final point. _Some_ folks have suggested WASM points to a future where JS is excised from, or minimized in, the web. These folks often harbor ill feelings about JS, and want some other language—any other language!—to replace it. Since WASM lets other languages run in the JS engine, on its face this isn't an entirely fanciful fairytale.
+这本书不是关于WASM的,所以我不会话太多时间来讨论它,期待最后一点._一些_ 人认为 WASM 指出了 JS 从 Web 中删除或最小化的未来。这些人经常对 JS 怀有恶意，并希望用其他语言 — 任何其他语言 — 来取代它。由于 WASM 允许其他语言在 JS 引擎中运行，因此从表面上看，这并不完全是一个幻想的童话故事。
 
 But let me just state simply: WASM will not replace JS. WASM significantly augments what the web (including JS) can accomplish. That's a great thing, entirely orthogonal to whether some people will use it as an escape hatch from having to write JS.
+但是让我简单来说: WASM不会代替JS. WASM增大
 
 ## *Strict*ly Speaking
 
-Back in 2009 with the release of ES5, JS added _strict mode_ as an opt-in mechanism for encouraging better JS programs.
+在2009年ES5发布之后, JS添加了严格模式作为一种选择加入机制，以鼓励更好的 JS 进程。
 
-The benefits of strict mode far outweigh the costs, but old habits die hard and the inertia of existing (aka "legacy") code bases is really hard to shift. So sadly, more than 10 years later, strict mode's _optionality_ means that it's still not necessarily the default for JS programmers.
+严格模式的好处超出成本,但是旧习惯很难消亡, 已经存在代码基很难避免. 所以很遗憾,至少十年以后, 非强制性的严格模式意味着对JS程序员来讲不是必要的.
 
-Why strict mode? Strict mode shouldn't be thought of as a restriction on what you can't do, but rather as a guide to the best way to do things so that the JS engine has the best chance of optimizing and efficiently running the code. Most JS code is worked on by teams of developers, so the _strict_-ness of strict mode (along with tooling like linters!) often helps collaboration on code by avoiding some of the more problematic mistakes that slip by in non-strict mode.
+为什么使用严格模式? 严格模式不应该在不能做方面视为限制,而是作为需要做什么的最佳指导,所以JS引擎拥有最好的时机来优化提升执行代码. 绝大多数JS代码对开发者团队有用,所以严格模式经常帮助代码合并,避免在非严格模式下拆分的问题错误.
 
-Most strict mode controls are in the form of _early errors_, meaning errors that aren't strictly syntax errors but are still thrown at compile time (before the code is run). For example, strict mode disallows naming two function parameters the same, and results in an early error. Some other strict mode controls are only observable at runtime, such as how `this` defaults to `undefined` instead of the global object.
+大部分严格模式控制是以早期错误的形式,意味着不是严格语言错误也能在编译时(在代码执行前)抛出. 例如, 严格模式不允许命名两个相同的函数参数,所以结果尽可能早点报错.一些其它严格模式控制机制只在运行时观察,例如`this`默认指向`undefined`而不是全局对象.
 
-Rather than fighting and arguing with strict mode, like a kid who just wants to defy whatever their parents tell them not to do, the best mindset is that strict mode is like a linter reminding you how JS _should_ be written to have the highest quality and best chance at performance. If you find yourself feeling handcuffed, trying to work around strict mode, that should be a blaring red warning flag that you need to back up and rethink the whole approach.
+与其挑战和抱怨严格模式,像一个只想挑战任何他们父母不让做的小孩,最好的心态是严格模式类似检查器, 来提醒你JS如何编写才会有高质量和机会来性能. 如果你发现自己被限制住了,努力围绕严格模式来工作,这应该是一个响亮的红色警告信号，您需要备份并重新考虑整个方法。
 
 Strict mode is switched on per file with a special pragma (nothing allowed before it except comments/whitespace):
+严格模式在每个文件中使用特殊编程(在它期望评论/空格之前不允许任何内容)来切换
 
 ```js
 // only whitespace and comments are allowed
@@ -441,19 +446,19 @@ function someOperations() {
 }
 ```
 
-Interestingly, if a file has strict mode turned on, the function-level strict mode pragmas are disallowed. So you have to pick one or the other.
+有意思的是,如果文件开启了严格模式,函数级别的严格模式编译指示不被允许.所以你必须选择其中一个.
 
-The **only** valid reason to use a per-function approach to strict mode is when you are converting an existing non-strict mode program file and need to make the changes little by little over time. Otherwise, it's vastly better to simply turn strict mode on for the entire file/program.
+将每个函数的方法用于严格模式的 **唯一** 有效原因是，当你正在转换现有的非严格模式进程文档，并且需要随着时间的推移一点一点地进行更改时。否则，简单地为整个文档/进程打开严格模式要好得多。
 
-Many have wondered if there would ever be a time when JS made strict mode the default? The answer is, almost certainly not. As we discussed earlier around backwards compatibility, if a JS engine update started assuming code was strict mode even if it's not marked as such, it's possible that this code would break as a result of strict mode's controls.
+很多人好奇如果当JS默认为严格模式会如何?答案是,肯定不会.当我们之前讨论向后兼容,如果JS引擎开始以严格模式建议代码编写,即使不必如此,它可能会因为严格模式而崩溃.
 
-However, there are a few factors that reduce the future impact of this non-default "obscurity" of strict mode.
+然而,有几个因素可以减少 Strict 模式的这种非默认 “模糊” 的未来影响。
 
-For one, virtually all transpiled code ends up in strict mode even if the original source code isn't written as such. Most JS code in production has been transpiled, so that means most JS is already adhering to strict mode. It's possible to undo that assumption, but you really have to go out of your way to do so, so it's highly unlikely.
+一个是,几乎所有转译后的代码最终都处于 strict 模式，即使原始源代码不是这样编写的。生产中的大多数 JS 代码都已转译，因此这意味着大多数 JS 已经遵循 strict 模式。可以撤销这个假设，但你真的必须想尽办法这样做，所以这不太可能。
 
-Moreover, a wide shift is happening toward more/most new JS code being written using the ES6 module format. ES6 modules assume strict mode, so all code in such files is automatically defaulted to strict mode.
+其它, 越来越多的/大多数新 JS 代码使用 ES6 模块格式编写，正在发生很大的转变。ES6 模块采用 strict 模式，因此此类文档中的所有代码都自动默认为 strict 模式。
 
-Taken together, strict mode is largely the de facto default even though technically it's not actually the default.
+综上所述，严格模式在很大程度上是事实上的默认值，尽管从技术上讲它实际上并不是默认值。
 
 ## Defined
 
