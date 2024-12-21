@@ -1,57 +1,59 @@
 # You Don't Know JS Yet: Get Started - 2nd Edition
 # Chapter 2: Surveying JS
+# Chapter 2: 总览JS
 
-The best way to learn JS is to start writing JS.
+学习JS的最好方式就是开始写JS.
 
-To do that, you need to know how the language works, and that's what we'll focus on here. Even if you've programmed in other languages before, take your time getting comfortable with JS, and make sure to practice each piece.
+为了做到这一点,你需要知道这门语言如何工作,且知道我们应该将注意力集中到哪.即使你之前用其它语言编程,花点时间熟悉JS,确保每个章节都练习.
 
-This chapter is not an exhaustive reference on every bit of syntax of the JS language. It's also not intended to be a complete "intro to JS" primer.
+这一章不是JS语言语法的全面引用,也不打算做全面的"JS介绍"的入门书.
 
-Instead, we're just going to survey some of the major topic areas of the language. Our goal is to get a better *feel* for it, so that we can move forward writing our own programs with more confidence. We'll revisit many of these topics in successively more detail as you go through the rest of this book, and the rest of the series.
+相反,我们仅仅了解一些这门语言的主要领域主题.我们的目标是对这门语言有一个更好的*感知*,所以我们可以提前写程序. 在您阅读本书的其余部分和本系列的其余部分时，我们将依次更详细地回顾其中的许多主题。
 
-Please don't expect this chapter to be a quick read. It's long and there's plenty of detail to chew on. Take your time.
+请不要把这一章节当作一个快速入门. 其内容较多,慢慢来.
 
 | TIP: |
 | :--- |
-| If you're still getting familiar with JS, I suggest you reserve plenty of extra time to work through this chapter. Take each section and ponder and explore the topic for awhile. Look through existing JS programs and compare what you see in them to the code and explanations (and opinions!) presented here. You will get a lot more out of the rest of the book and series with a solid foundation of JS's *nature*. |
+|我建议你预留足够的额外时间来阅读这一章。阅读每一部分，思考和探索主题一段时间。浏览现有的JS程序，并将其中的内容与本文提供的代码和解释（以及观点！）进行比较。在对JS的本质有了坚实的基础后，您将从本书和系列的其余部分中获得更多。|
 
-## Each File is a Program
+## 每个文件都是一个程序
 
-Almost every website (web application) you use is comprised of many different JS files (typically with the .js file extension). It's tempting to think of the whole thing (the application) as one program. But JS sees it differently.
+你用的绝大多数网站(网页应用)是由很多不同的JS文件(通常使用 .js 扩展)构成. 人们很容易把整个东西（应用程序）看作一个程序。但是JS有不同的看法。
 
-In JS, each standalone file is its own separate program.
+在JS中, 每个独立的文件都是JS的独立程序.
 
-The reason this matters is primarily around error handling. Since JS treats files as programs, one file may fail (during parse/compile or execution) and that will not necessarily prevent the next file from being processed. Obviously, if your application depends on five .js files, and one of them fails, the overall application will probably only partially operate, at best. It's important to ensure that each file works properly, and that to whatever extent possible, they handle failure in other files as gracefully as possible.
+这很重要的原因主要是关于错误处理. 因为JS把文件视作程序, 一个文件可能失败(在解析/编译或执行阶段)不一定会阻止后续文件的处理.明显看来, 如果你的应用依赖5个.js文件,且其中一个失败了, 应用整体可能只有部分执行,最乐观的情况下.确保每个文件工作正常是非常重要的,并且在任何可能的范围内，尽可能优雅地处理其他文件中的故障。
 
-It may surprise you to consider separate .js files as separate JS programs. From the perspective of your usage of an application, it sure seems like one big program. That's because the execution of the application allows these individual *programs* to cooperate and act as one program.
+将独立的.js文件当作独立的JS程序可能会让你很惊讶. 从你使用应用的角度来说,它的确像一个大一点的程序. 那是因为应用的执行允许这些独立的*程序*合并和作为单独一个程序运行.
 
 | NOTE: |
 | :--- |
-| Many projects use build process tools that end up combining separate files from the project into a single file to be delivered to a web page. When this happens, JS treats this single combined file as the entire program. |
+| 很多项目使用构建处理工具来,最终将项目各独立文件合并和一个文件,交付给web页面.当发生这种情况时, JS将这个单独的组合文件视为整个程序。|
 
-The only way multiple standalone .js files act as a single program is by sharing their state (and access to their public functionality) via the "global scope." They mix together in this global scope namespace, so at runtime they act as a whole.
+多个单独的.js文件作为一个独立程序运行的唯一方式是通过'global scope'共享它们的状态(和访问它们公共的功能). 它们在全局作用域空间中混杂在一起,所以在运行时,它们作为整体运行.
 
-Since ES6, JS has also supported a module format in addition to the typical standalone JS program format. Modules are also file-based. If a file is loaded via module-loading mechanism such as an `import` statement or a `<script type=module>` tag, all its code is treated as a single module.
+从ES6以来,除了典型的独立JS程序格式,JS也支持模块格式. 模块也是基于文件的.如果一个文件通过模块加载机制进行加载,例如一个`import`语句或`<script type=module>`标签, 那它的代码会被当作独立模块对待.
 
-Though you wouldn't typically think about a module—a collection of state and publicly exposed methods to operate on that state—as a standalone program, JS does in fact still treat each module separately. Similar to how "global scope" allows standalone files to mix together at runtime, importing a module into another allows runtime interoperation between them.
+尽管您通常不会将模块（状态和公开的方法来操作该状态的方法的集合）视为一个独立的进程, JS事实上仍然独立对待每个模块. 和'global scope'如何允许独立文件在运行时混入在一起一样, 引入另一个模块到另一个,也运行在它们之间运行时的互操作.
 
-Regardless of which code organization pattern (and loading mechanism) is used for a file (standalone or module), you should still think of each file as its own (mini) program, which may then cooperate with other (mini) programs to perform the functions of your overall application.
+无论文件(独立的还是模块的)使用哪种代码组织模式(和加载机制), 你应该依旧认为每个文件作为它自己的(迷你)程序,可能之后和其它(迷你)程序合作来执行你整体应用的功能.
 
-## Values
+## Values(值)
 
-The most fundamental unit of information in a program is a value. Values are data. They're how the program maintains state. Values come in two forms in JS: **primitive** and **object**.
+程序中最基础的信息单元就是'值'. 值是数据.值是程序中维持状态的方式. 值在JS中有两种形式: 原始值(primitive)和对象(object)
 
-Values are embedded in programs using *literals*:
+值使用字面量(literals)嵌入到程序中:
 
 ```js
 greeting("My name is Kyle.");
 ```
 
-In this program, the value `"My name is Kyle."` is a primitive string literal; strings are ordered collections of characters, usually used to represent words and sentences.
+在此程序中,值`"My name is Kyle"`是原始字符串字面量(primitive string literal); 字符串(string)是有序的字符(characters)集合,通常用作标识单词或句子.
 
-I used the double-quote `"` character to *delimit* (surround, separate, define) the string value. But I could have used the single-quote `'` character as well. The choice of which quote character is entirely stylistic. The important thing, for the sake of code readability and maintainability, is to pick one and to use it consistently throughout the program.
+我用双引号`"`字符来分割(包围,分离,定义)字符串值.但是我也能使用单引号`'`. 引号的选择完全取决于风格. 重要的是,为了代码的可读性和可维护性,在程序中选择其中一种并一直使用它.
 
-Another option to delimit a string literal is to use the back-tick `` ` `` character. However, this choice is not merely stylistic; there's a behavioral difference as well. Consider:
+另一种分割(delimit)字符串字面量的方式是使用反引号`` ` ``字符. 然而,这种选择不仅仅是风格上的,还有行为上的不同. 考虑如下内容:
+
 
 ```js
 console.log("My name is ${ firstName }.");
@@ -64,9 +66,9 @@ console.log(`My name is ${ firstName }.`);
 // My name is Kyle.
 ```
 
-Assuming this program has already defined a variable `firstName` with the string value `"Kyle"`, the `` ` ``-delimited string then resolves the variable expression (indicated with `${ .. }`) to its current value. This is called **interpolation**.
+假设此程序已经定义一个`firstName`变量,其值为`"Kyle"`, 这`` ` ``- 分割字符串然后解析变量表达式(指的是`${...}`)为当前的值. 这被称作**插值(interpolation)**
 
-The back-tick `` ` ``-delimited string can be used without including interpolated expressions, but that defeats the whole purpose of that alternate string literal syntax:
+反引号`` ` ``分割字符串可以在没有包含插值表达式的情况下使用,但是这破坏替代字符串字面量语法的目的:
 
 ```js
 console.log(
@@ -75,9 +77,9 @@ console.log(
 // Am I confusing you by omitting interpolation?
 ```
 
-The better approach is to use `"` or `'` (again, pick one and stick to it!) for strings *unless you need* interpolation; reserve `` ` `` only for strings that will include interpolated expressions.
+对字符串使用`"`或`'`(再次强调,选择一种并坚持下去)更好的方式是,*除非你需要*插值; 只给哪些将会包含插值表达式的字符串保留`` ` ``.
 
-Other than strings, JS programs often contain other primitive literal values such as booleans and numbers:
+除了字符串外, JS程序经常包含其它原始字面量(primitive literal values),例如布尔和数值:
 
 ```js
 while (false) {
@@ -85,24 +87,24 @@ while (false) {
 }
 ```
 
-`while` represents a loop type, a way to repeat operations *while* its condition is true.
+`while`代表一个循环类型, *当(white)*它的条件是true的时候的重复操作的一种方式.
 
-In this case, the loop will never run (and nothing will be printed), because we used the `false` boolean value as the loop conditional. `true` would have resulted in a loop that keeps going forever, so be careful!
+在这个例子中,循环将永远不会运行(也不会打印任何东西),因为我们使用`false`布尔值作为循环条件. `true`将会生成一个循环并且一直执行, 所以要注意.
 
-The number `3.141592` is, as you may know, an approximation of mathematical PI to the first six digits. Rather than embed such a value, however, you would typically use the predefined `Math.PI` value for that purpose. Another variation on numbers is the `bigint` (big-integer) primitive type, which is used for storing arbitrarily large numbers.
+数值`3.141592`,就像你了解的一样,是数学上圆周率前六位的近似值. 相比较程序中嵌入这样的值,你通常使用预定义的`Math.PI`来标识这个值.对数字的另一种变化是 bigint（大整数）原始类型，它用于存储任意大的数字。
 
-Numbers are most often used in programs for counting steps, such as loop iterations, and accessing information in numeric positions (i.e., an array index). We'll cover arrays/objects in a little bit, but as an example, if there was an array called `names`, we could access the element in its second position like this:
+数值(Numbers)是在程序中计算步骤最长使用的,例如循环迭代(loop iterations), 获取数字位置的信息(比如,数组索引).我们简单介绍以下数组/对象.例如,如果有一个数组称作`names`,我们可以在它第二个位置获取到元素,例如:
 
 ```js
 console.log(`My name is ${ names[1] }.`);
 // My name is Kyle.
 ```
 
-We used `1` for the element in the second position, instead of `2`, because like in most programming languages, JS array indices are 0-based (`0` is the first position).
+我们使用`1`标识第二个位置的元素,而不是`2`,因为像大多数编程语言,JS数组索引是基于0的(`0`是第一个位置).
 
-In addition to strings, numbers, and booleans, two other *primitive* values in JS programs are `null` and `undefined`. While there are differences between them (some historic and some contemporary), for the most part both values serve the purpose of indicating *emptiness* (or absence) of a value.
+除了字符串strings, 数值numbers,和布尔值booleans, 在JS程序中另两个原始值是`null`和`undefined`. 然而在这两者之间有不同(一些历史和现在的原因),大大多数情况下这俩值都是标识值的*空*(或缺少).
 
-Many developers prefer to treat them both consistently in this fashion, which is to say that the values are assumed to be indistinguishable. If care is taken, this is often possible. However, it's safest and best to use only `undefined` as the single empty value, even though `null` seems attractive in that it's shorter to type!
+很多开发者更愿意以这种方式一致地对待它们,也就是说,假设这个俩值是不可区分的.如果小心的话,这通常是可能的. 然而,最安全最好的使用方式是,只用`undefined`作为单个空值,即使`null`看起来更有吸引力,因为它的写起来更短.
 
 ```js
 while (value != undefined) {
@@ -110,20 +112,20 @@ while (value != undefined) {
 }
 ```
 
-The final primitive value to be aware of is a symbol, which is a special-purpose value that behaves as a hidden unguessable value. Symbols are almost exclusively used as special keys on objects:
+最后一个需要主要的原始值是symbol, 它是一个特殊用途的值,它的行为就像一个隐藏的不可猜测的值.Symbols几乎完全用作对象上的特殊键:
 
 ```js
 hitchhikersGuide[ Symbol("meaning of life") ];
 // 42
 ```
 
-You won't encounter direct usage of symbols very often in typical JS programs. They're mostly used in low-level code such as in libraries and frameworks.
+在典型的JS程序中,你不会经常遇到symbols的直接使用.它们绝大多数用在低代码(low-level code)中例如库和框架中.
 
-### Arrays And Objects
+### Arrays And Objects(数组和对象)
 
-Besides primitives, the other value type in JS is an object value.
+除了原始值primitives之外, 在JS中其它值类型是一个对象值.
 
-As mentioned earlier, arrays are a special type of object that's comprised of an ordered and numerically indexed list of data:
+像之前提到的, 数组是一个特殊类型的对象,其由有序的数字索引的数据列表组成:
 
 ```js
 var names = [ "Frank", "Kyle", "Peter", "Susan" ];
@@ -138,13 +140,13 @@ names[1];
 // Kyle
 ```
 
-JS arrays can hold any value type, either primitive or object (including other arrays). As we'll see toward the end of Chapter 3, even functions are values that can be held in arrays or objects.
+JS数组可包含任意值类型,原始值或对象(包含其它数组). 正如我们将在第三章末尾看到的，即使函数也是可以保存在数组或对象中的值。
 
 | NOTE: |
 | :--- |
-| Functions, like arrays, are a special kind (aka, sub-type) of object. We'll cover functions in more detail in a bit. |
+| 函数,例如数组,是对象的一种特殊类型(又名,子类型). 稍后我们将更详细的介绍函数.|
 
-Objects are more general: an unordered, keyed collection of any various values. In other words, you access the element by a string location name (aka "key" or "property") rather than by its numeric position (as with arrays). For example:
+对象是更普遍的: 无需,不同值的键集合. 换句话说,你通过一个字符串位置名称(又名, '键(key)'或属性(property))访问元素,而不是通过它数字位置(类似数组). 例如:
 
 ```js
 var me = {
@@ -157,11 +159,11 @@ var me = {
 console.log(`My name is ${ me.first }.`);
 ```
 
-Here, `me` represents an object, and `first` represents the name of a location of information in that object (value collection). Another syntax option that accesses information in an object by its property/key uses the square-brackets `[ ]`, such as  `me["first"]`.
+`me`表示一个对象,`first`表示在对象(值集合)中位置信息的名字. 在一个对象中另一个访问信息的语法选项,是通过他自己的属性/键(property/key)来使用中括号, 例如`me["first"]`.
 
-### Value Type Determination
+### Value Type Determination值类型检测
 
-For distinguishing values, the `typeof` operator tells you its built-in type, if primitive, or `"object"` otherwise:
+为了分辨值, `typeof`操作符告诉你值的内建类型,如果是原始值primitive, 否则是`"object"`:
 
 ```js
 typeof 42;                  // "number"
@@ -176,37 +178,37 @@ typeof function hello(){};  // "function"
 
 | WARNING: |
 | :--- |
-| `typeof null` unfortunately returns `"object"` instead of the expected `"null"`. Also, `typeof` returns the specific `"function"` for functions, but not the expected `"array"` for arrays. |
+| `typeof null`不幸地返回`"object"`而不是期待的`"null"`. 同样的, `typeof`为函数返回特定的`"function"`,但为数组不会返回期待中的`"array"`.|
 
-Converting from one value type to another, such as from string to number, is referred to in JS as "coercion." We'll cover this in more detail later in this chapter.
+转换一种值类型为另一种,例如从字符串到数值,在JS中指的是强制类型转换"coercion". 我们将在之后的章节更详细的介绍它.
 
-Primitive values and object values behave differently when they're assigned or passed around. We'll cover these details in Appendix A, "Values vs References."
+原始值和对象值当分配或传递时,行为不同.我们将在附录A中介绍细节, "值于引用(Values vs References)".
 
-## Declaring and Using Variables
+## Declaring and Using Variables声明和使用变量
 
-To be explicit about something that may not have been obvious in the previous section: in JS programs, values can either appear as literal values (as many of the preceding examples illustrate), or they can be held in variables; think of variables as just containers for values.
+明确说明上一节中可能不明显的事情: 在JS程序中, 值可以作为字面量(如前面许多示例所示)出现, 或者它们可以保存在变量中; 可以把变量看作值的容器.
 
-Variables have to be declared (created) to be used. There are various syntax forms that declare variables (aka, "identifiers"), and each form has different implied behaviors.
+变量(Variables)必须声明(创建)才可以使用.有很多不同的语法形式来声明变量(又名, 标识符'identifiers'), 每个形式具有不同的隐含行为.
 
-For example, consider the `var` statement:
+例如, 考虑以下`var`语句:
 
 ```js
 var myName = "Kyle";
 var age;
 ```
 
-The `var` keyword declares a variable to be used in that part of the program, and optionally allows an initial assignment of a value.
+`var`关键字声明一个变量用来在程序中使用,可选的对值进行初始赋值.
 
-Another similar keyword is `let`:
+另一种相似关键是`let`:
 
 ```js
 let myName = "Kyle";
 let age;
 ```
 
-The `let` keyword has some differences to `var`, with the most obvious being that `let` allows a more limited access to the variable than `var`. This is called "block scoping" as opposed to regular or function scoping.
+`let`关键字对`var`关键字有些不同,最明显的是`let`允许对变量的访问比`var`更优先. 这被称作`block scope(块作用域)`,与常规作用域(regular)和函数作用域(function scoping)相对.
 
-Consider:
+思考以下:
 
 ```js
 var adult = true;
