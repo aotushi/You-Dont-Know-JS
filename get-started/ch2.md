@@ -227,16 +227,21 @@ console.log(age);
 ```
 
 The attempt to access `age` outside of the `if` statement results in an error, because `age` was block-scoped to the `if`, whereas `myName` was not.
+在`if`语句外尝试获取`age`导致一个错误,因为`age`是在`if`的块作用域(block-scope)中,而`myName`则不是.
 
 Block-scoping is very useful for limiting how widespread variable declarations are in our programs, which helps prevent accidental overlap of their names.
+块作用域是对限制程序中变量声明的应用范围很有用,这有助于防止变量名称的重叠.
 
 But `var` is still useful in that it communicates "this variable will be seen by a wider scope (of the whole function)". Both declaration forms can be appropriate in any given part of a program, depending on the circumstances.
-
+但是`var`仍然很有用,因为它传达了"这个变量将被更广泛的范围(整个函数)看到".根据情况，这两种声明形式都可以适用于进程的任何给定部分。
 | NOTE: |
 | :--- |
-| It's very common to suggest that `var` should be avoided in favor of `let` (or `const`!), generally because of perceived confusion over how the scoping behavior of `var` has worked since the beginning of JS. I believe this to be overly restrictive advice and ultimately unhelpful. It's assuming you are unable to learn and use a feature properly in combination with other features. I believe you *can* and *should* learn any features available, and use them where appropriate! |
+| It's very common to suggest that `var` should be avoided in favor of `let` (or `const`!), generally because of perceived confusion over how the scoping behavior of `var` has worked since the beginning of JS. I believe this to be overly restrictive advice and ultimately unhelpful. It's assuming you are unable to learn and use a feature properly in combination with other features. I believe you *can* and *should* learn any features available, and use them where appropriate! 
+通常建议避免使用`var`,而支持使用`let`(或`const`),通常因为从JS开始以来,人们对`var`作用域如何工作是感到困惑的.我认为这是严格的建议且最终没啥帮助.它假设你无法正确的将某项功能与其它功能结合使用. 我相信*能*且*应该*学习任何可用的特性,并在合适地方使用它们.
+|
 
 A third declaration form is `const`. It's like `let` but has an additional limitation that it must be given a value at the moment it's declared, and cannot be re-assigned a different value later.
+第3种声明形式是`const`. 它像`let`但是有一个额外的限制,在声明时必须给一个初始值,而且之后不能重复声明.
 
 Consider:
 
@@ -251,8 +256,10 @@ if (myBirthday) {
 ```
 
 The `myBirthday` constant is not allowed to be re-assigned.
+`myBirthday`常量不允许被重复声明.
 
 `const` declared variables are not "unchangeable", they just cannot be re-assigned. It's ill-advised to use `const` with object values, because those values can still be changed even though the variable can't be re-assigned. This leads to potential confusion down the line, so I think it's wise to avoid situations like:
+`const`声明变量是不是不能"改变"的,它们不能被重新赋值(re-assigned). 为对象值使用`const`是不明智的,因为即使变量不能被重新赋值,这些对象值仍然可以被改变.这导致下面的混淆,所以我认为避免像下面这种情况是明智的:
 
 ```js
 const actors = [
@@ -264,12 +271,16 @@ actors = [];                // Error!
 ```
 
 The best semantic use of a `const` is when you have a simple primitive value that you want to give a useful name to, such as using `myBirthday` instead of `true`. This makes programs easier to read.
+`const`的最好语义使用方式是当你有一个原始值,你想给一个有用的名字,例如`myBirthday`而不是`true`. 这让程序更容易读.
 
 | TIP: |
 | :--- |
-| If you stick to using `const` only with primitive values, you avoid any confusion of re-assignment (not allowed) vs. mutation (allowed)! That's the safest and best way to use `const`. |
+| If you stick to using `const` only with primitive values, you avoid any confusion of re-assignment (not allowed) vs. mutation (allowed)! That's the safest and best way to use `const`. 
+如果你对原始值坚持使用`const`,你会避免任何重复赋值(不允许)和突变(允许)的混淆. 这是最安全和最好的使用`const`的方式.
+|
 
 Besides `var` / `let` / `const`, there are other syntactic forms that declare identifiers (variables) in various scopes. For example:
+除了`var` / `let` / `const`外, 还有其它语法形式可以在各种作用域内声明标识符(变量). 例如:
 
 ```js
 function hello(myName) {
@@ -281,8 +292,10 @@ hello("Kyle");
 ```
 
 The identifier `hello` is created in the outer scope, and it's also automatically associated so that it references the function. But the named parameter `myName` is created only inside the function, and thus is only accessible inside that function's scope. `hello` and `myName` generally behave as `var`-declared.
+标识符`hello`在外部作用域中创建, 它自动关联,以便它引用函数.但是命名参数`myName`只在函数内部创建, 所以只能在函数的作用域内部访问. `hello`和`myName`通常表现为`var`声明.
 
 Another syntax that declares a variable is a `catch` clause:
+另一个声明变量的语法是`catch`语句.
 
 ```js
 try {
@@ -295,13 +308,17 @@ catch (err) {
 
 The `err` is a block-scoped variable that exists only inside the `catch` clause, as if it had been declared with `let`.
 
+`err`是一个块作用域变量,且只存在于`catch`句子内部,就像是它用`let`声明一样.
 ## Functions
 
 The word "function" has a variety of meanings in programming. For example, in the world of Functional Programming, "function" has a precise mathematical definition and implies a strict set of rules to abide by.
+`function`这个单词在编程中具有非常广泛的含义.例如,在函数式编程的世界中,'function'有一个精确的数学定义并要遵守一套严格的规则.
 
 In JS, we should consider "function" to take the broader meaning of another related term: "procedure." A procedure is a collection of statements that can be invoked one or more times, may be provided some inputs, and may give back one or more outputs.
+在JS中,我们可以考虑'function'具有另一个相关术语'procedure'的更宽泛的含义. 一个程序(procedure)是语句的集合,且能被调用1到多次,可能会提供一些输入,可能返回一些输出
 
 From the early days of JS, function definition looked like:
+从JS早期开始,函数定义是这样的:
 
 ```js
 function awesomeFunction(coolThings) {
@@ -311,8 +328,10 @@ function awesomeFunction(coolThings) {
 ```
 
 This is called a function declaration because it appears as a statement by itself, not as an expression in another statement. The association between the identifier `awesomeFunction` and the function value happens during the compile phase of the code, before that code is executed.
+这杯称作函数声明,因为它本身显示为一个语句,而不是另一个语句的表达式.标识符`awesomeFUnction`和函数值在代码执行前的编译阶段相关联.
 
 In contrast to a function declaration statement, a function expression can be defined and assigned like this:
+与函数声明语句相反,函数表达式能像下面这样定义和赋值:
 
 ```js
 // let awesomeFunction = ..
@@ -324,10 +343,13 @@ var awesomeFunction = function(coolThings) {
 ```
 
 This function is an expression that is assigned to the variable `awesomeFunction`. Different from the function declaration form, a function expression is not associated with its identifier until that statement during runtime.
+上面这个函数是一个表达式且赋值给变量`awesomeFunction`. 和函数声明形式不同,函数表达式直到运行时才与其标识符关联.
 
 It's extremely important to note that in JS, functions are values that can be assigned (as shown in this snippet) and passed around. In fact, JS functions are a special type of the object value type. Not all languages treat functions as values, but it's essential for a language to support the functional programming pattern, as JS does.
+在JS中需要记住这非常重要的一点,函数是值且能被赋值(就像在上面代码片段中那样)和传递. 事实上,JS函数是对象类型中一种特殊类型. 不是所有的语言把函数当作值,但是对一门语言来说,支持函数编程范式很重要,就像JS做的那样.
 
 JS functions can receive parameter input:
+JS函数可以接收参数:
 
 ```js
 function greeting(myName) {
@@ -338,8 +360,10 @@ greeting("Kyle");   // Hello, Kyle!
 ```
 
 In this snippet, `myName` is called a parameter, which acts as a local variable inside the function. Functions can be defined to receive any number of parameters, from none upward, as you see fit. Each parameter is assigned the argument value that you pass in that position (`"Kyle"`, here) of the call.
+在这段代码中, `myName`被称作参数,其行为像是函数内的局部变量.  函数可以被定义接收任意数量的参数(形参),从0到多个,直到你认为适合.每个形参会被赋值为调用时候相同位置(这里是`"Kyle"`)你传递的实参值(argument value).
 
 Functions also can return values using the `return` keyword:
+使用`return`关键字返回函数值:
 
 ```js
 function greeting(myName) {
@@ -352,8 +376,10 @@ console.log(msg);   // Hello, Kyle!
 ```
 
 You can only `return` a single value, but if you have more values to return, you can wrap them up into a single object/array.
+你只能`return`单个值,如果你有多个值需要返回,你可以把它们包装成一个对象/数组.
 
 Since functions are values, they can be assigned as properties on objects:
+因为函数是值,它们能当作对象的属性(object properties)被赋值.
 
 ```js
 var whatToSay = {
@@ -373,24 +399,30 @@ whatToSay.greeting();
 ```
 
 In this snippet, references to three functions (`greeting()`, `question()`, and `answer()`) are included in the object held by `whatToSay`. Each function can be called by accessing the property to retrieve the function reference value. Compare this straightforward style of defining functions on an object to the more sophisticated `class` syntax discussed later in this chapter.
+这上面的代码块中, 对3个函数(`greeting()`, `question()`, and `answer()`)的引用包含在`whatToSay`持有的对象中.每个函数可以通过访问属性来检索函数引用值来调用.在之后的章节中,将会比较对象上定义函数的简单风格和更复杂的`class`语法.
 
 There are many varied forms that `function`s take in JS. We dig into these variations in Appendix A, "So Many Function Forms."
-
-## Comparisons
+JS中有很多不同形式的函数.我们将在附录A中深入这些变化, "So Many Function Forms".
+## Comparisons 比较
 
 Making decisions in programs requires comparing values to determine their identity and relationship to each other. JS has several mechanisms to enable value comparison, so let's take a closer look at them.
+在程序中做出需要比较值来决定它们相等或其它关系的决策. JS有多个机制实现值比较,所以我们仔细看看.
 
 ### Equal...ish
 
 The most common comparison in JS programs asks the question, "Is this X value *the same as* that Y value?" What exactly does "the same as" really mean to JS, though?
+在JS程序中最常见的比较问题是, 这个X值是否与Y值*相同*?但是对于JS来说, *相同*究竟意味着什么?
 
 For ergonomic and historical reasons, the meaning is more complicated than the obvious *exact identity* sort of matching. Sometimes an equality comparison intends *exact* matching, but other times the desired comparison is a bit broader, allowing *closely similar* or *interchangeable* matching. In other words, we must be aware of the nuanced differences between an **equality** comparison and an **equivalence** comparison.
+因为工程和历史原因,相同的含义比*完全相同*类型的匹配更复杂.有时相等比较(equality comparison)旨在*完全*匹配,但有时候所需的比较更宽泛一些,允许*接近相同(closely similar)* 或 *可互换*匹配.换句话说,我们必须一世到在**equality相等**比较和**equivalence全等(等价)**比较的微妙区别.
 
 If you've spent any time working with and reading about JS, you've certainly seen the so-called "triple-equals" `===` operator, also described as the "strict equality" operator. That seems rather straightforward, right? Surely, "strict" means strict, as in narrow and *exact*.
+如果你花过时间研究和阅读JS,你肯定直到称作'triple-equals(全等)'`===`操作符,也被描述做"严格相等"操作符. 它看起来并不直接明了,是吧.确定的是,`strict(严格)意味着strict(严格),
 
 Not *exact*ly.
 
 Yes, most values participating in an `===` equality comparison will fit with that *exact same* intuition. Consider some examples:
+是的，参与 '===' 相等比较的大多数值都符合那个*完全相同*的直觉。请看一些例子：
 
 ```js
 3 === 3.0;              // true
