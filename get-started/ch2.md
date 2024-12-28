@@ -440,9 +440,11 @@ null === undefined;     // false
 
 | NOTE: |
 | :--- |
-| Another way `===`'s equality comparison is often described is, "checking both the value and the type". In several of the examples we've looked at so far, like `42 === "42"`, the *type* of both values (number, string, etc.) does seem to be the distinguishing factor. There's more to it than that, though. **All** value comparisons in JS consider the type of the values being compared, not *just* the `===` operator. Specifically, `===` disallows any sort of type conversion (aka, "coercion") in its comparison, where other JS comparisons *do* allow coercion. |
+| Another way `===`'s equality comparison is often described is, "checking both the value and the type". In several of the examples we've looked at so far, like `42 === "42"`, the *type* of both values (number, string, etc.) does seem to be the distinguishing factor. There's more to it than that, though. **All** value comparisons in JS consider the type of the values being compared, not *just* the `===` operator. Specifically, `===` disallows any sort of type conversion (aka, "coercion") in its comparison, where other JS comparisons *do* allow coercion. 
+另一种常用描述‘ === ’相等性比较的方法是同时检查值和类型。在最近几个我们查看过的例子中, 像`42===42`,两个值(数值,字符串等)的类型似乎是区别因素.尽管有比这更多的因素. 在JS中**所有**值比较都会在比较时考虑被比较值的类型, 不仅仅是`===`操作符. 特别是, `===`在比较中不允许任何形式的类型转换(别名,'coercion'强制), 然而其它JS比较**是**允许强制类型转换.|
 
 But the `===` operator does have some nuance to it, a fact many JS developers gloss over, to their detriment. The `===` operator is designed to *lie* in two cases of special values: `NaN` and `-0`. Consider:
+但是`===`操作符确实有一些细微差异,这是许多JS开发人员掩盖的事实, 会对它们不利. `===`操作符在两种特殊情况下被设计为*不准确*: ``NaN`和`-0`. 请考虑:
 
 ```js
 NaN === NaN;            // false
@@ -450,12 +452,16 @@ NaN === NaN;            // false
 ```
 
 In the case of `NaN`, the `===` operator *lies* and says that an occurrence of `NaN` is not equal to another `NaN`. In the case of `-0` (yes, this is a real, distinct value you can use intentionally in your programs!), the `===` operator *lies* and says it's equal to the regular `0` value.
+在`NaN`的情况下, `===`操作符*撒谎(不准确)*表示一个 `NaN` 实例与另一个 `NaN` 不相等。在`-0`的情况下(是的, 这确实是一个真实的、独特的值，您可以在程序中有意使用！), `===`操作符*不准确*表示它等于普通的`0`值.
 
 Since the *lying* about such comparisons can be bothersome, it's best to avoid using `===` for them. For `NaN` comparisons, use the `Number.isNaN(..)` utility, which does not *lie*. For `-0` comparison, use the `Object.is(..)` utility, which also does not *lie*. `Object.is(..)` can also be used for non-*lying* `NaN` checks, if you prefer. Humorously, you could think of `Object.is(..)` as the "quadruple-equals" `====`, the really-really-strict comparison!
+由于此类比较不准确会很困扰,最好避免对`NaN`和`-0`使用`===`. 对`NaN`比较, 使用`Number.isNaN(..)`工具,这个不会不准确. 对`-0`比较, 使用`Object.is(..)`工具. `Object.is(..)`也可以用来做准确(non-lying)`NaN`检查, 如果你更愿意的话. 有趣的是,你可以认为`Object.is(..)`是4倍(quadruple-equals)`====`, 真-真-严格比较.(really-really-strict-comparison).
 
 There are deeper historical and technical reasons for these *lies*, but that doesn't change the fact that `===` is not actually *strictly exactly equal* comparison, in the *strictest* sense.
+对这些*不准确*是有更深的历史和技术原因, 但是不会改变`===`是不是真正的*严格准确相等*比较, 在*最严格(strictest)*意义上.
 
 The story gets even more complicated when we consider comparisons of object values (non-primitives). Consider:
+当我们考虑对象值比较,事情会更加复杂. 请考虑:
 
 ```js
 [ 1, 2, 3 ] === [ 1, 2, 3 ];    // false
@@ -464,12 +470,16 @@ The story gets even more complicated when we consider comparisons of object valu
 ```
 
 What's going on here?
+在这里发生了什么呢?
 
 It may seem reasonable to assume that an equality check considers the *nature* or *contents* of the value; after all, `42 === 42` considers the actual `42` value and compares it. But when it comes to objects, a content-aware comparison is generally referred to as "structural equality."
+相等检查(equality check)考虑值的*特性*和*内容*的假设看起来是合理的; 比较, `42 === 42`会考虑实际`42`的值并比较. 但是当涉及到对象时, 内容敏感的比较通常被称为"结构相等".
 
 JS does not define `===` as *structural equality* for object values. Instead, `===` uses *identity equality* for object values.
+JS没有定义`===`为对象值的*结构相等*. 相反,`===`对对象值使用*完全相等(identity equality)*.
 
 In JS, all object values are held by reference (see "Values vs References" in Appendix A), are assigned and passed by reference-copy, **and** to our current discussion, are compared by reference (identity) equality. Consider:
+在JS中, 所有对象值都是通过引用(见'Values vs References" in Appendix A)来保存, 通过引用拷贝(reference-copy)来赋值和传递, **并且**在我们当前讨论中, 通过引用(身份)相等来进行比较
 
 ```js
 var x = [ 1, 2, 3 ];
@@ -485,24 +495,33 @@ x === [ 1, 2, 3 ];    // false
 ```
 
 In this snippet, `y === x` is true because both variables hold a reference to the same initial array. But the `=== [1,2,3]` comparisons both fail because `y` and `x`, respectively, are being compared to new *different* arrays `[1,2,3]`. The array structure and contents don't matter in this comparison, only the **reference identity**.
+在上面的代码片段中, `y===x`结果为true,因为两个变量引用相同的初始数组. 但是`===[1,2,3]`的比较两次都失败,因为`y`和`x`各自比较新*不同*数组`[1,2,3]`. 在比较中,无关数组结构和内容,只有**引用相同(referrence identity)**才有关.
 
 JS does not provide a mechanism for structural equality comparison of object values, only reference identity comparison. To do structural equality comparison, you'll need to implement the checks yourself.
+JS对对象值不提供结构相等比较,而只提供引用相等比较. 要实现结构相等比较的话,你需要自己实施检查.
 
 But beware, it's more complicated than you'll assume. For example, how might you determine if two function references are "structurally equivalent"? Even stringifying to compare their source code text wouldn't take into account things like closure. JS doesn't provide structural equality comparison because it's almost intractable to handle all the corner cases!
+要小心的是,这比你想得更复杂.例如,你如何确定两个函数引用是"结构等效(structural equality)"? 即使字符串化来比较它们的源代码文本也不会考虑到闭包之类的东西. JS不提供结构等效比较因为处理所有边缘情况是几乎非常难的.
 
-### Coercive Comparisons
+### Coercive Comparisons(强制比较)
 
 Coercion means a value of one type being converted to its respective representation in another type (to whatever extent possible). As we'll discuss in Chapter 4, coercion is a core pillar of the JS language, not some optional feature that can reasonably be avoided.
+强制意味着一个类型的值会被转换成另一种类型的相应表示形式(在可能的范围内).我们将在Chapter 4中讨论, 强制转换是JS语言中核心,不是可选的可以合理避免的特性.
 
 But where coercion meets comparison operators (like equality), confusion and frustration unfortunately crop up more often than not.
+但是，当强制操作遇到比较操作符（如相等操作符）时，不幸的是，混淆和挫折往往会突然出现。
 
 Few JS features draw more ire in the broader JS community than the `==` operator, generally referred to as the "loose equality" operator. The majority of all writing and public discourse on JS condemns this operator as poorly designed and dangerous/bug-ridden when used in JS programs. Even the creator of the language himself, Brendan Eich, has lamented how it was designed as a big mistake.
+在更广泛的 JS 社区中，很少有 JS 功能比 '==' 运算符（通常称为 “松散相等” 运算符）更引起愤怒。大多数关于 JS 的写作和公共讨论都谴责这个运算符在 JS 进程中使用时设计不佳且危险/充满错误。就连该语言的创造者 Brendan Eich 本人也对它的设计是一个大错误感到遗憾。
 
 From what I can tell, most of this frustration comes from a pretty short list of confusing corner cases, but a deeper problem is the extremely widespread misconception that it performs its comparisons without considering the types of its compared values.
+我能说的是, 大多数困惑来自比较简短的困惑边缘案例列表,但是更深的问题是非常深非常的误解关于它执行比较时候不会考虑比较值的类型.
 
 The `==` operator performs an equality comparison similarly to how the `===` performs it. In fact, both operators consider the type of the values being compared. And if the comparison is between the same value type, both `==` and `===` **do exactly the same thing, no difference whatsoever.**
+`==`操作符执行相等比较类似于`===`操作符的执行相等比较.事实上,两个操作符会考虑比较值的类型.如果比较是在两个相同值类型, `==`和`===`**都会做相同的事,没有任何区别**.
 
 If the value types being compared are different, the `==` differs from `===` in that it allows coercion before the comparison. In other words, they both want to compare values of like types, but `==` allows type conversions *first*, and once the types have been converted to be the same on both sides, then `==` does the same thing as `===`. Instead of "loose equality," the `==` operator should be described as "coercive equality."
+如果比较的值类型是不同的,`==`是不同于`===`的,是它在比较之前允许强制类型转换.换句话说,它们都想比较相似类型的值,但是`==`允许类型*首先*转换,一旦类型转换为两边都相同, 届时`==`会做于`===`一样的事情. `==`操作符应该被描述为"强制相等",而非'松散相等'.
 
 Consider:
 
