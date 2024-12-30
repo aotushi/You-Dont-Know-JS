@@ -531,14 +531,19 @@ Consider:
 ```
 
 In both comparisons, the value types are different, so the `==` causes the non-number values (`"42"` and `true`) to be converted to numbers (`42` and `1`, respectively) before the comparisons are made.
+两个比较中,值的类型是不同的,所以`==`会在比较发生之前,将非数值的值(`"42"`和`true`)转换为数值(`42`和`1`, 各自)
 
 Just being aware of this nature of `==`—that it prefers primitive numeric comparisons—helps you avoid most of the troublesome corner cases, such as staying away from a gotchas like `"" == 0` or `0 == false`.
+要注意到`==`的特性, 它更倾向于原始数值比较-帮助你避免绝大多数的让人困惑的边缘情况,例如,远离像`"" == 0` 或者 `0 == false`之类的陷阱.
 
 You may be thinking, "Oh, well, I will just always avoid any coercive equality comparison (using `===` instead) to avoid those corner cases"! Eh, sorry, that's not quite as likely as you would hope.
+你可能会想,"行吧, 我会总是避免强制相等比较(使用`===`代替)来避免这些边缘情况"! 抱歉, 这并不像你希望的那幺可能。
 
 There's a pretty good chance that you'll use relational comparison operators like `<`, `>` (and even `<=` and `>=`).
+有相当大的机会你会使用关系运算符, 像`<`, `>`(甚至`<=`, `>=`).
 
 Just like `==`, these operators will perform as if they're "strict" if the types being relationally compared already match, but they'll allow coercion first (generally, to numbers) if the types differ.
+就像`==`, 如果要进行关系比较的类型已经相同(match),那么操作符会像严格操作符一样执行,但是如果类型不同,它们将会允许强制类型转换(通常转换成数值).
 
 Consider:
 
@@ -550,8 +555,10 @@ for (let i = 0; i < arr.length && arr[i] < 500; i++) {
 ```
 
 The `i < arr.length` comparison is "safe" from coercion because `i` and `arr.length` are always numbers. The `arr[i] < 500` invokes coercion, though, because the `arr[i]` values are all strings. Those comparisons thus become `1 < 500`, `10 < 500`, `100 < 500`, and `1000 < 500`. Since that fourth one is false, the loop stops after its third iteration.
+这段不翻译了,过于直白.
 
 These relational operators typically use numeric comparisons, except in the case where **both** values being compared are already strings; in this case, they use alphabetical (dictionary-like) comparison of the strings:
+关系运算符通常使用数值比较, 除了**双方**比较的值都是字符串; 在这种情况下, 使用字符串alphabetical(类似字典)比较
 
 ```js
 var x = "10";
@@ -561,16 +568,21 @@ x < y;      // true, watch out!
 ```
 
 There's no way to get these relational operators to avoid coercion, other than to just never use mismatched types in the comparisons. That's perhaps admirable as a goal, but it's still pretty likely you're going to run into a case where the types *may* differ.
+没有方法来避免关系运算符的强制类型转换, 除非在比较时永远不要使用不匹配的类型. 这个目标太大了,但你仍然很可能会遇到类型*可能*不同的情况。
 
 The wiser approach is not to avoid coercive comparisons, but to embrace and learn their ins and outs.
+更明智的方法不是避免强制转换,而是拥抱和学习它们的来龙去脉.
 
 Coercive comparisons crop up in other places in JS, such as conditionals (`if`, etc.), which we'll revisit in Appendix A, "Coercive Conditional Comparison."
+强制转换也会偶然出现在JS的其它地方,例如条件(`if`,等等),我们可以在附录A "Coercive Conditional"中找到它.
 
 ## How We Organize in JS
 
 Two major patterns for organizing code (data and behavior) are used broadly across the JS ecosystem: classes and modules. These patterns are not mutually exclusive; many programs can and do use both. Other programs will stick with just one pattern, or even neither!
+两种主要的组织代码的模式(数据和行为)在JS生态中应用广泛: 类和模块. 而且并不互斥; 很多程序能且两个都用. 其它程序则坚持仅有一种模式,甚至都没有.
 
 In some respects, these patterns are very different. But interestingly, in other ways, they're just different sides of the same coin. Being proficient in JS requires understanding both patterns and where they are appropriate (and not!).
+在某些方面, 这俩模式是非常不同的.但是有意思的,在另一些方面,它们仅仅是硬币的不同面. 精通JS需要理解两种模式并且理解它们用在哪里合适(不合适).
 
 ### Classes
 
