@@ -587,10 +587,13 @@ In some respects, these patterns are very different. But interestingly, in other
 ### Classes
 
 The terms "object-oriented," "class-oriented," and "classes" are all very loaded full of detail and nuance; they're not universal in definition.
+"面向对象(object-oriented)", "面向类(class-oriented)"和"类"这些术语,充满了细节和细微差别; 它们在定义上不通用.
 
 We will use a common and somewhat traditional definition here, the one most likely familiar to those with backgrounds in "object-oriented" languages like C++ and Java.
+我们在这里将使用常见的和有点传统的定义, 对于那些具有C++和Java等"面向对象"语言背景的人来说, 这个定义很可能很熟悉.
 
 A class in a program is a definition of a "type" of custom data structure that includes both data and behaviors that operate on that data. Classes define how such a data structure works, but classes are not themselves concrete values. To get a concrete value that you can use in the program, a class must be *instantiated* (with the `new` keyword) one or more times.
+程序中的类是对包含数据和操作该数据的行为的“自定义数据结构类型”的定义。 类定义了这种数据结构的工作方式，但类本身不是具体的值。 要获得可以在程序中使用的具体值，必须对类进行一次或多次实例化（使用new关键字）。
 
 Consider:
 
@@ -631,18 +634,24 @@ mathNotes.print();
 ```
 
 In the `Page` class, the data is a string of text stored in a `this.text` member property. The behavior is `print()`, a method that dumps the text to the console.
+在`Page`类中, 数据是存储在成员属性`this.text`中的文本字符串, 行为是`print()`, 这是一种将文本输出到控制台的方法。
 
 For the `Notebook` class, the data is an array of `Page` instances. The behavior is `addPage(..)`, a method that instantiates new `Page` pages and adds them to the list, as well as `print()` (which prints out all the pages in the notebook).
+`Notebook`类, 数据是`Page`实例的数组.行为是`addPage(...)`, 实例化新的`Page`页面并将它们添加到列表的方法, 和`print()`一样(其打印notebook中的所有pages)
 
 The statement `mathNotes = new Notebook()` creates an instance of the `Notebook` class, and `page = new Page(text)` is where instances of the `Page` class are created.
+语句`mathNotes = new Notebook()`创建类`Notebook`的实例, `page = new Page(text)`是`Page`类创建的实例.
 
 Behavior (methods) can only be called on instances (not the classes themselves), such as `mathNotes.addPage(..)` and `page.print()`.
+行为(方法)仅能在实例(不是类自身)上调用, 例如`mathNotes.addPage(..)`和`page.print()`.
 
 The `class` mechanism allows packaging data (`text` and `pages`) to be organized together with their behaviors (e.g., `addPage(..)` and `print()`). The same program could have been built without any `class` definitions, but it would likely have been much less organized, harder to read and reason about, and more susceptible to bugs and subpar maintenance.
+`class`机制允许将封装的数据(`text`和``pages`)与其行为(例如, `addPage(..)`和`print()`)一起组织起来. 相同的程序可以在没有`class`定义下来构建, 但是这个程序可能组织的更差, 更难阅读和理解,并且更容易出现错误和维护不佳.
 
-#### Class Inheritance
+#### Class Inheritance类继承
 
 Another aspect inherent to traditional "class-oriented" design, though a bit less commonly used in JS, is "inheritance" (and "polymorphism"). Consider:
+传统“面向类”设计的另一个固有方面是“继承”（和“多态”('polymorphism')），尽管在 JavaScript 中使用得相对较少。
 
 ```js
 class Publication {
@@ -663,8 +672,10 @@ class Publication {
 ```
 
 This `Publication` class defines a set of common behavior that any publication might need.
+`Publication`类定义了一系列出版物可能需要的通用行为.
 
 Now let's consider more specific types of publication, like `Book` and `BlogPost`:
+现在让我们考虑更详细的出版物类型, 例如`Book`和`BlogPost`:
 
 ```js
 class Book extends Publication {
@@ -701,6 +712,7 @@ class BlogPost extends Publication {
 ```
 
 Both `Book` and `BlogPost` use the `extends` clause to *extend* the general definition of `Publication` to include additional behavior. The `super(..)` call in each constructor delegates to the parent `Publication` class's constructor for its initialization work, and then they do more specific things according to their respective publication type (aka, "sub-class" or "child class").
+`Book`和`BlogPost`使用`extends`句子来*extend*`Publication`通用的定义,包含额外的行为. 每个构造函数中的 super(..) 调用委托给父类 Publication 的构造函数来执行其初始化工作，然后它们根据各自的出版物类型（也称为“子类”或“子类”）执行更具体的操作。
 
 Now consider using these child classes:
 
@@ -735,26 +747,34 @@ forAgainstLet.print();
 ```
 
 Notice that both child class instances have a `print()` method, which was an override of the *inherited* `print()` method from the parent `Publication` class. Each of those overridden child class `print()` methods call `super.print()` to invoke the inherited version of the `print()` method.
+注意两个子类实例有`print()`方法, 其重写了从父类`Publication`*继承*的`print()`方法. 每个重写的子类`print()`方法调用了`super.print()`来调用继承版本的`print()`方法.
 
 The fact that both the inherited and overridden methods can have the same name and co-exist is called *polymorphism*.
+继承(inherited)和重写(overridden)方法能有相同的名称和共存的事实被称为*多态*(polymorphism).
 
 Inheritance is a powerful tool for organizing data/behavior in separate logical units (classes), but allowing the child class to cooperate with the parent by accessing/using its behavior and data.
+在分散的逻辑单元(类)中继承是组织数据/行为的有利工具, 但允许子类通过访问/使用父类行为数据来和父类合作.
 
-### Modules
+### Modules模块
 
 The module pattern has essentially the same goal as the class pattern, which is to group data and behavior together into logical units. Also like classes, modules can "include" or "access" the data and behaviors of other modules, for cooperation's sake.
+模块模式基本上和类模式有相同的目标, 组织数据和行为为逻辑单元. 也像类一样, 模块,为了合作的目标,可以"包含"或"访问"其它模块的数据和行为.
 
 But modules have some important differences from classes. Most notably, the syntax is entirely different.
+但是模块与类有一些重要的不同. 尤其是, 语法完全不同.
 
-#### Classic Modules
+#### Classic Modules 类模块
 
 ES6 added a module syntax form to native JS syntax, which we'll look at in a moment. But from the early days of JS, modules was an important and common pattern that was leveraged in countless JS programs, even without a dedicated syntax.
+ES6给原生JS语法添加了模块语法形式, 接下来我们将了解一下.但是从早期JS阶段, 模块是重要和通用的模式,在无数JS程序中起到了杠杆作用, 即使没有专用的语法.
 
 The key hallmarks of a *classic module* are an outer function (that runs at least once), which returns an "instance" of the module with one or more functions exposed that can operate on the module instance's internal (hidden) data.
+*经典模块* 的关键标志是一个外部函数（至少运行一次），它返回模块的“实例”，其中公开了一个或多个函数，这些函数可以操作模块实例的内部（隐藏）数据。
 
 Because a module of this form is *just a function*, and calling it produces an "instance" of the module, another description for these functions is "module factories".
-
+因为这个形式的模块就是一个函数, 并且调用它回生成模块的一个*实例*, 这些函数的其它描述是"模块工厂module factories".
 Consider the classic module form of the earlier `Publication`, `Book`, and `BlogPost` classes:
+考虑之前`Publication`, `Book`和`BlogPost`类的经典模块形式:
 
 ```js
 function Publication(title,author,pubDate) {
@@ -806,14 +826,19 @@ function BlogPost(title,author,pubDate,URL) {
 ```
 
 Comparing these forms to the `class` forms, there are more similarities than differences.
+比较这些形式和`类`的形式, 相似多于不同.
 
 The `class` form stores methods and data on an object instance, which must be accessed with the `this.` prefix. With modules, the methods and data are accessed as identifier variables in scope, without any `this.` prefix.
+`类`形式是在对象实例上存储了方法和数据, 其访问必须通过`this.`前缀. 模块的话, 方法和数据的方法是通过作用域中的标识符变量(identifier variables),不用任何`this.`前缀.
 
 With `class`, the "API" of an instance is implicit in the class definition—also, all data and methods are public. With the module factory function, you explicitly create and return an object with any publicly exposed methods, and any data or other unreferenced methods remain private inside the factory function.
+使用`类`, 实例的"API"是隐含在类定义的, 所有的数据和方法是公共的.使用模块工厂函数, 你显式创建并返回一个对象, 其中包含任何公开暴露的方法,而任何数据或其他未引用的方法都将保持在工厂函数内部私有。
 
 There are other variations to this factory function form that are quite common across JS, even in 2020; you may run across these forms in different JS programs: AMD (Asynchronous Module Definition), UMD (Universal Module Definition), and CommonJS (classic Node.js-style modules). The variations are minor (not quite compatible). However, all of these forms rely on the same basic principles.
+工厂函数的其它变种形式,即使在2020年也是非常常见的;你可能在不同的JS程序中执行过这些: AMD(异步模块定义), UMD(统一模块定义), 和CommonJS(经典Node.js-style模块). 变化很小(不太兼容). 然而, 所有的这些形式依赖于相同的基本原则.
 
 Consider also the usage (aka, "instantiation") of these module factory functions:
+考虑这些模块工厂函数的用法(别名, '实例')
 
 ```js
 var YDKJS = Book({
@@ -846,20 +871,27 @@ forAgainstLet.print();
 ```
 
 The only observable difference here is the lack of using `new`, calling the module factories as normal functions.
+这里唯一观测到的差异是缺少了`new`的使用, 像普通函数一样调用模块函数.
 
 #### ES Modules
 
 ES modules (ESM), introduced to the JS language in ES6, are meant to serve much the same spirit and purpose as the existing *classic modules* just described, especially taking into account important variations and use cases from AMD, UMD, and CommonJS.
+ES模块(ESM), 在ES6中被引入到了JS语言, 旨在实现和刚才描述的现有*经典模块*相同的目的，特别是考虑到 AMD、UMD 和 CommonJS 的重要变体和用例。
 
 The implementation approach does, however, differ significantly.
+但是实施方法却有很大的不同.
 
 First, there's no wrapping function to *define* a module. The wrapping context is a file. ESMs are always file-based; one file, one module.
+首先, *定义*模块不会有包装函数. 包装的上下文是一个文件, ESMs是基于文件的; 一个文件,一个模块.
 
 Second, you don't interact with a module's "API" explicitly, but rather use the `export` keyword to add a variable or method to its public API definition. If something is defined in a module but not `export`ed, then it stays hidden (just as with *classic modules*).
+第二, 你不会与模块的'API'显式的交互, 而是用`export`关键字来添加一个变量或方法未公共的API定义. 如果模块中有些定义了却没有`export`ed, 那么它将保持隐藏(就像*经典模块*一样).
 
 Third, and maybe most noticeably different from previously discussed patterns, you don't "instantiate" an ES module, you just `import` it to use its single instance. ESMs are, in effect, "singletons," in that there's only one instance ever created, at first `import` in your program, and all other `import`s just receive a reference to that same single instance. If your module needs to support multiple instantiations, you have to provide a *classic module-style* factory function on your ESM definition for that purpose.
+第三, 来自之前讨论过的模式最明显的差异可能是, 你不需要"实例化"一个ES模块, 你仅仅`import`模块来使用这个模块单例. ESMs是,实际上,"单例singletons",  ...., 首先在程序中`import`, 所有其它`import`s仅仅是接收同一个实例的引用. 如果你地模块需要支持多个实例, 你必须在你地ESM定义上, 提供一个`经典模块风格*地工厂函数, 才能实现目的.
 
 In our running example, we do assume multiple-instantiation, so these following snippets will mix both ESM and *classic modules*.
+在我们接下来的例子中, 我们假设多个实例,所以接下来的片段将混合ESM和*经典模块*.
 
 Consider the file `publication.js`:
 
@@ -884,6 +916,7 @@ export function create(title,author,pubDate) {
 ```
 
 To import and use this module, from another ES module like `blogpost.js`:
+ 从其它像`blogpost.js`的ES模块中,导入并使用这个模块: 
 
 ```js
 import { create as createPub } from "publication.js";
@@ -907,6 +940,7 @@ export function create(title,author,pubDate,URL) {
 ```
 
 And finally, to use this module, we import into another ES module like `main.js`:
+最后, 为了用这个模块,我们导入了像`main.js`的ES模块: 
 
 ```js
 import { create as newBlogPost } from "blogpost.js";
@@ -928,15 +962,21 @@ forAgainstLet.print();
 | NOTE: |
 | :--- |
 | The `as newBlogPost` clause in the `import` statement is optional; if omitted, a top-level function just named `create(..)` would be imported. In this case, I'm renaming it for readability's sake; its more generic factory name of `create(..)` becomes more semantically descriptive of its purpose as `newBlogPost(..)`. |
+在`import`句子中的`as newBlogPOst`子句是可选的; 如果忽略, 一个名为`create(..)`的顶级函数将会被导入. 在这个例子中, 为了读取方便的目的,我重命名了它; 
 
 As shown, ES modules can use *classic modules* internally if they need to support multiple-instantiation. Alternatively, we could have exposed a `class` from our module instead of a `create(..)` factory function, with generally the same outcome. However, since you're already using ESM at that point, I'd recommend sticking with *classic modules* instead of `class`.
+就像展示的一样, ES模块如果需要支持多个实例的话, 内部能用*经典模块*. 可选的是, 我们可以从模块中暴露一个`类`来代替`create(..)`工厂函数, 结果大致相同. 然而, 既然你已经使用了ESM, 我推荐用`经典模块*代替`类`.
 
 If your module only needs a single instance, you can skip the extra layers of complexity: `export` its public methods directly.
+如果你的模块只许看一个单例(single instance), 你可以忽略额外的复杂层: 直接`export`它的公共方法.
 
-## The Rabbit Hole Deepens
+## The Rabbit Hole Deepens兔子洞越来越深
 
 As promised at the top of this chapter, we just glanced over a wide surface area of the main parts of the JS language. Your head may still be spinning, but that's entirely natural after such a firehose of information!
+在本章上面承诺过的, 我们仅仅是粗略浏览JS语言主要部分的表面. 你的脑袋可能现在还是晕的,但这是在接收了这么多消息后是正常的.
 
 Even with just this "brief" survey of JS, we covered or hinted at a ton of details you should carefully consider and ensure you are comfortable with. I'm serious when I suggest: re-read this chapter, maybe several times.
+即便是"简短"了解JS, 我们概述或提示你应该详细了解的很多细节,确保你能适应它. 我很严肃的建议: 反复读这一章, 尽可能地多几次.
 
 In the next chapter, we're going to dig much deeper into some important aspects of how JS works at its core. But before you follow that rabbit hole deeper, make sure you've taken adequate time to fully digest what we've just covered here.
+在下一章, 我们将对在JS在核心中如何工作的一些重要方面挖掘的更深. 但是在你进到兔子洞之前, 请确保你已经花了足够的时间来完全消化我们刚刚介绍的内容。
