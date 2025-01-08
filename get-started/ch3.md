@@ -2,36 +2,51 @@
 # Chapter 3: Digging to the Roots of JS
 
 If you've read Chapters 1 and 2, and taken the time to digest and percolate, you're hopefully starting to *get* JS a little more. If you skipped/skimmed them (especially Chapter 2), I recommend going back to spend some more time with that material.
+如果你已经读完了章节1和章节2,并且花时间消化和过滤, 那幺你希望你开始更多地了解一下 JS.如果你跳过/略过他们(特别是章节2), 我推荐你回去花时间了解细节.
 
 In Chapter 2, we surveyed syntax, patterns, and behaviors at a high level. In this chapter, our attention shifts to some of the lower-level root characteristics of JS that underpin virtually every line of code we write.
+在章节2中, 我们高标准的调查了语法,范式和行为.在本章节中,我们的注意力转移到更低尺度的JS的根角色上, 其实际上支撑我们写的每行代码.
 
 Be aware: this chapter digs much deeper than you're likely used to thinking about a programming language. My goal is to help you appreciate the core of how JS works, what makes it tick. This chapter should begin to answer some of the "Why?" questions that may be cropping up as you explore JS. However, this material is still not an exhaustive exposition of the language; that's what the rest of the book series is for! Our goal here is still just to *get started*, and become more comfortable with, the *feel* of JS, how it ebbs and flows.
+请注意：本章的深入探讨可能比您习惯的编程语言要深入得多。我的目标是帮助你觉察JS工作的核心, 是什么让他运转起来的.本章节应该开始回答一些当你探索JS时候涌现的'为什么'的问题. 然而, 这份材料仍然不是对这种语言的详尽阐述; 那是这本书接下来的系列.我们的目标仍然只是 *开始*，并更加适应 JS 的 *感觉* ，以及它是如何起伏的。
 
 Don't run so quickly through this material that you get lost in the weeds. As I've said a dozen times already, **take your time**. Even still, you'll probably finish this chapter with remaining questions. That's OK, because there's a whole book series ahead of you to keep exploring!
+不要快速浏览这份资料,否则你迷失. 正如我已经说过十几次的，**慢慢来**。即便如此，您仍可能会带着剩余的问题结束本章。没关系，因为有一整本书系列等着你继续探索！
 
-## Iteration
+## Iteration迭代
 
 Since programs are essentially built to process data (and make decisions on that data), the patterns used to step through the data have a big impact on the program's readability.
+由于程序本质上是为处理数据（并根据该数据做出决策）而构建的，因此用于逐步遍历数据的模式对程序的可读性有很大影响。
 
 The iterator pattern has been around for decades, and suggests a "standardized" approach to consuming data from a source one *chunk* at a time. The idea is that it's more common and helpful to iterate the data source—to progressively handle the collection of data by processing the first part, then the next, and so on, rather than handling the entire set all at once.
+迭代器模式已经存在了几十年, 且提议为每次从源*块*消费数据的"标准"方法. 其思想是, 迭代数据源更普遍更有帮助-通过处理第一部分,然后下一个部分,以此类推, 而不是一次处理整个数据的逐步处理数据集合的方式.
+
 
 Imagine a data structure that represents a relational database `SELECT` query, which typically organizes the results as rows. If this query had only one or a couple of rows, you could handle the entire result set at once, and assign each row to a local variable, and perform whatever operations on that data that were appropriate.
+想象表示关系型数据库`SELECT`查询的数据解构, 通常将结果组织为行. 如果查询结果只有一行或几行, 你能一次性处理整个结果集合, 声明每行为一个本地变量, 在数据上执行任何适当的操作.
 
 But if the query has 100 or 1,000 (or more!) rows, you'll need iterative processing to deal with this data (typically, a loop).
+但是如果查询100或1000(甚至更多)行,你将需要迭代处理来进行数据处理(特别是循环).
 
 The iterator pattern defines a data structure called an "iterator" that has a reference to an underlying data source (like the query result rows), which exposes a method like `next()`. Calling `next()` returns the next piece of data (i.e., a "record" or "row" from a database query).
+迭代器模式定义称作'迭代器'的数据结构,其对底层数据源(例如查询结构行)有一个引用,暴露一个像`next()`的方法. 调用`next()`返回数据的下一段(例如, 来自数据库查询的'record'或'row').
 
 You don't always know how many pieces of data that you will need to iterate through, so the pattern typically indicates completion by some special value or exception once you iterate through the entire set and *go past the end*.
+你并不总是知道你需要迭代多少块数据,所以一旦你迭代完整个集合并且*走过终点*的话,迭代器模式通常使用特殊的值或例外值来特别表示完成.
 
 The importance of the iterator pattern is in adhering to a *standard* way of processing data iteratively, which creates cleaner and easier to understand code, as opposed to having every data structure/source define its own custom way of handling its data.
+迭代器模式的重要之处是遵从了迭代处理数据的*标准*方式,其创建了理解代码的简单和简介,与每个数据结构/数据源定义它自定义处理数据的方式相反.
 
 After many years of various JS community efforts around mutually agreed-upon iteration techniques, ES6 standardized a specific protocol for the iterator pattern directly in the language. The protocol defines a `next()` method whose return is an object called an *iterator result*; the object has `value` and `done` properties, where `done` is a boolean that is `false` until the iteration over the underlying data source is complete.
+经过多年不同的JS社区围绕勾心斗角的迭代技术的努力, ES6直接在语言中为迭代器模式标准化了一个特定的协议. 协议定义了一个`next()`方法,其返回其是一个称作*迭代结果*的对象; 这个对象具有`value`和`done`属性, `done`是一个布尔值,在底层数据源迭代完成之前, 它是'false'.
 
 ### Consuming Iterators
 
 With the ES6 iteration protocol in place, it's workable to consume a data source one value at a time, checking after each `next()` call for `done` to be `true` to stop the iteration. But this approach is rather manual, so ES6 also included several mechanisms (syntax and APIs) for standardized consumption of these iterators.
+使用ES6迭代器协议, 就可以一次使用数据源的一个值, 每次`next()`调用之后,`done`如果为`true`就停止迭代. 但是这个方案是更手动的, 所以ES6也包含了几种机制(语法和APIs)来标准化迭代器的使用.
 
 One such mechanism is the `for..of` loop:
+一个类似的机制是`for...of`循环:
 
 ```js
 // given an iterator of some data source:
@@ -48,13 +63,17 @@ for (let val of it) {
 
 | NOTE: |
 | :--- |
-| We'll omit the manual loop equivalent here, but it's definitely less readable than the `for..of` loop! |
+| We'll omit the manual loop equivalent here, but it's definitely less readable than the `for..of` loop! 
+我们在这里忽略等效的manual loop等效项, 但它肯定比`for...of`缺少可读性.
 
 Another mechanism that's often used for consuming iterators is the `...` operator. This operator actually has two symmetrical forms: *spread* and *rest* (or *gather*, as I prefer). The *spread* form is an iterator-consumer.
+另一个经常用来消费迭代器的机制是`...`操作符. 这个操作符实际上有两个对称的形式: *spread扩展*和*剩余rest*(或是*收集gather*, 我更喜欢这个). *扩展*形式是迭代器消费者(iterator-consumer).
 
 To *spread* an iterator, you have to have *something* to spread it into. There are two possibilities in JS: an array or an argument list for a function call.
+要*扩展*一个迭代器, 你必须有*东西*才能扩展它. 在JS中有两个可能: 数组或函数调用的参数列表.
 
 An array spread:
+数组扩展:
 
 ```js
 // spread an iterator into an array,
@@ -73,16 +92,21 @@ doSomethingUseful( ...it );
 ```
 
 In both cases, the iterator-spread form of `...` follows the iterator-consumption protocol (the same as the `for..of` loop) to retrieve all available values from an iterator and place (aka, spread) them into the receiving context (array, argument list).
+在两个案例中, 迭代器-扩展形式`...`遵循迭代器-消费(iterator-consumption)协议(和`for...of`循环相同)来从一个迭代器中检索所有可用值并且安置(又名,扩展)他们到接收的上下文中(数组, 参数列表).
 
-### Iterables
+### Iterables迭代对象
 
 The iterator-consumption protocol is technically defined for consuming *iterables*; an iterable is a value that can be iterated over.
+迭代器-消费协议为消费*迭代对象(iterables)*定义的; 一个迭代对象是可以迭代的值.
 
 The protocol automatically creates an iterator instance from an iterable, and consumes *just that iterator instance* to its completion. This means a single iterable could be consumed more than once; each time, a new iterator instance would be created and used.
+迭代器-消费协议从一个迭代对象中自动创建了一个迭代器示例, 消费*迭代器实例*直到完成. 这意味着一个单独的迭代对象可以被消费多次; 每一次, 一个新的迭代器实例将会被创建并使用.
 
 So where do we find iterables?
+所以我们从哪里找到迭代对象?
 
 ES6 defined the basic data structure/collection types in JS as iterables. This includes strings, arrays, maps, sets, and others.
+ES6在JS中定义基本的数据结构/集合类型作为迭代对象. 这包括字符串, 数组, 映射, 集合和其它.
 
 Consider:
 
@@ -99,6 +123,7 @@ for (let val of arr) {
 ```
 
 Since arrays are iterables, we can shallow-copy an array using iterator consumption via the `...` spread operator:
+既然数组是迭代对象, 我们可以通过`...`扩展运算符使用迭代器消费来浅拷贝数组:
 
 ```js
 var arrCopy = [ ...arr ];
@@ -106,6 +131,7 @@ var arrCopy = [ ...arr ];
 
 We can also iterate the characters in a string one at a time:
 
+我们也可以在字符串中一次性迭代字符: 
 ```js
 var greeting = "Hello world!";
 var chars = [ ...greeting ];
@@ -116,6 +142,7 @@ chars;
 ```
 
 A `Map` data structure uses objects as keys, associating a value (of any type) with that object. Maps have a different default iteration than seen here, in that the iteration is not just over the map's values but instead its *entries*. An *entry* is a tuple (2-element array) including both a key and a value.
+`Map`数据结构使用对象作为keys,将值与该对象关联. Maps的默认迭代与此处不同, 迭代的不仅仅是map的值,而是其'entries'. 一个*entry*是一个元组(2元数组),包含键和值.
 
 Consider:
 
@@ -134,8 +161,11 @@ for (let [btn,btnName] of buttonNames) {
 ```
 
 In the `for..of` loop over the default map iteration, we use the `[btn,btnName]` syntax (called "array destructuring") to break down each consumed tuple into the respective key/value pairs (`btn1` / `"Button 1"` and `btn2` / `"Button 2"`).
+`for...of`循环了默认map的迭代, 我们用`[btn, btnName]`语法(称作"数组解构")来分解每个消费的元素为各自的key/value对(`btn1` / `"Button 1"` and `btn2` / `"Button 2"`).
 
 Each of the built-in iterables in JS expose a default iteration, one which likely matches your intuition. But you can also choose a more specific iteration if necessary. For example, if we want to consume only the values of the above `buttonNames` map, we can call `values()` to get a values-only iterator:
+在JS中每个内建的迭代对象暴露了一个默认的迭代, 一个可能契合你意图的东西.但如果需要的话你可以选择一个更具体的迭代.例如, 如果我们想只消费上面`buttonNames`映射的值的话, 我们可以调用`values
+()`来获取只有值的迭代器.
 
 ```js
 for (let btnName of buttonNames.values()) {
@@ -146,6 +176,7 @@ for (let btnName of buttonNames.values()) {
 ```
 
 Or if we want the index *and* value in an array iteration, we can make an entries iterator with the `entries()` method:
+或者如果我们想要索引*和*值在一个数组的迭代中, 我们可以用`entries()`方法来生成一个entries迭代器.
 
 ```js
 var arr = [ 10, 20, 30 ];
@@ -159,24 +190,33 @@ for (let [idx,val] of arr.entries()) {
 ```
 
 For the most part, all built-in iterables in JS have three iterator forms available: keys-only (`keys()`), values-only (`values()`), and entries (`entries()`).
+最重要的是, 在JS中所有内建的迭代对象具有3个可用的迭代形式: keys-only(`keys()`), values-only(`values()`), 和entries(`entries()`).
 
 Beyond just using built-in iterables, you can also ensure your own data structures adhere to the iteration protocol; doing so means you opt into the ability to consume your data with `for..of` loops and the `...` operator. "Standardizing" on this protocol means code that is overall more readily recognizable and readable.
+除了使用内建的迭代对象外, 你也能确保你自己的数据解构遵循迭代器协议; 这么做意味着你选择使用`for...of`循环和`...`操作符消费你数据的能力. '协议上的标准化(Standardizing)'意味着代码整体上更容易识别和可读.
 
 | NOTE: |
 | :--- |
-| You may have noticed a nuanced shift that occurred in this discussion. We started by talking about consuming **iterators**, but then switched to talking about iterating over **iterables**. The iteration-consumption protocol expects an *iterable*, but the reason we can provide a direct *iterator* is that an iterator is just an iterable of itself! When creating an iterator instance from an existing iterator, the iterator itself is returned. |
+| You may have noticed a nuanced shift that occurred in this discussion. We started by talking about consuming **iterators**, but then switched to talking about iterating over **iterables**. The iteration-consumption protocol expects an *iterable*, but the reason we can provide a direct *iterator* is that an iterator is just an iterable of itself! When creating an iterator instance from an existing iterator, the iterator itself is returned. 
+你可能注意到了在讨论中的细微变化. 我们从讨论消费**迭代器**开始, 但是之后跳到了讨论迭代**迭代对象**. 迭代-消费协议期待一个*迭代对象*, 但是我们可以提供一个直接*迭代器*的原因是一个迭代器就是迭代对象自身! 当现有的迭代器上创建迭代器实例时, 返回的迭代器本身.
+|
 
-## Closure
+## Closure闭包
 
 Perhaps without realizing it, almost every JS developer has made use of closure. In fact, closure is one of the most pervasive programming functionalities across a majority of languages. It might even be as important to understand as variables or loops; that's how fundamental it is.
+可能不相信, 几乎每个JS开发人员都使用过闭包. 事实上, 闭包是大多数语言中最普遍的编程功能之一.它甚至可能和理解边喝或循环一样重要; 它是非常基础的的.
 
 Yet it feels kind of hidden, almost magical. And it's often talked about in either very abstract or very informal terms, which does little to help us nail down exactly what it is.
+感觉闭包有点隐蔽,近乎魔术. 在抽象或正式的术语中它经常被谈论, 其帮助我们明确它具体是什么有那么点帮助.
 
 We need to be able to recognize where closure is used in programs, as the presence or lack of closure is sometimes the cause of bugs (or even the cause of performance issues).
+我们需要有能力认识到在程序中闭包在什么地方使用, 闭包的出现或缺少有时是bugs的起因(或者说, 性能问题的原因).
 
 So let's define closure in a pragmatic and concrete way:
+所以我们以务实和精确的方式来定义闭包:
 
 > Closure is when a function remembers and continues to access variables from outside its scope, even when the function is executed in a different scope.
+闭包是当一个函数记住并能持续访问其外部作用域的变量, 即使该函数在不同的作用域下执行完.
 
 We see two definitional characteristics here. First, closure is part of the nature of a function. Objects don't get closures, functions do. Second, to observe a closure, you must execute a function in a different scope than where that function was originally defined.
 
