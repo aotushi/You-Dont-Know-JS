@@ -219,6 +219,7 @@ So let's define closure in a pragmatic and concrete way:
 闭包是当一个函数记住并能持续访问其外部作用域的变量, 即使该函数在不同的作用域下执行完.
 
 We see two definitional characteristics here. First, closure is part of the nature of a function. Objects don't get closures, functions do. Second, to observe a closure, you must execute a function in a different scope than where that function was originally defined.
+在这里我们看到两个定义特征. 第一个, 闭包是函数特点的一部分. 对象没有闭包,但是函数有. 第二个, 要观察闭包, 你必须在不同的作用域中执行函数,而不是函数初始定义的地方.
 
 Consider:
 
@@ -243,10 +244,13 @@ howdy("Grant");
 ```
 
 First, the `greeting(..)` outer function is executed, creating an instance of the inner function `who(..)`; that function closes over the variable `msg`, which is the parameter from the outer scope of `greeting(..)`. When that inner function is returned, its reference is assigned to the `hello` variable in the outer scope. Then we call `greeting(..)` a second time, creating a new inner function instance, with a new closure over a new `msg`, and return that reference to be assigned to `howdy`.
+首先, 外部函数`greeting(...)`执行了, 创建了内部函数`who(...)`的一个实例; 这个函数覆盖了变量`msg`, 这个变量是外部作用域下`greeting(...)`的参数. 当内部函数返回后, 函数引用被赋值给了外部作用域的`hello`变量. 当我们第二次调用`greeting(...)`.创建了一个新的内部函数实例, 其具有一个闭包和新的`msg`, 且返回被赋值为`howdy`的引用.
 
 When the `greeting(..)` function finishes running, normally we would expect all of its variables to be garbage collected (removed from memory). We'd expect each `msg` to go away, but they don't. The reason is closure. Since the inner function instances are still alive (assigned to `hello` and `howdy`, respectively), their closures are still preserving the `msg` variables.
+当`greeting(...)`函数完成执行, 通常我们期待其所有的变量会被垃圾回收(从内存中移除). 我们期待每个`msg`各自消失, 但是它们并没有.原因就是闭包.因为内部函数实例仍然存在(被赋值为`hello`和`howdy`), 它们的闭包仍然保存`msg`变量.
 
 These closures are not a snapshot of the `msg` variable's value; they are a direct link and preservation of the variable itself. That means closure can actually observe (or make!) updates to these variables over time.
+闭包不是`msg`变量值的快照; 闭包是直接的链接(direct link)和变量自身的保存. 这意味着闭包实际上可以()更新多次变量. 这意味着闭包实际上可以随着时间的推移观察（或修改）这些变量
 
 ```js
 function counter(step = 1) {
@@ -269,8 +273,10 @@ incBy3();       // 9
 ```
 
 Each instance of the inner `increaseCount()` function is closed over both the `count` and `step` variables from its outer `counter(..)` function's scope. `step` remains the same over time, but `count` is updated on each invocation of that inner function. Since closure is over the variables and not just snapshots of the values, these updates are preserved.
+内部`increaseCount()`函数的每个实例都闭包了它外部`counter(...)`函数作用域的`count`和`stop`变量. `step`一直不变, 但是`count`在每次内部函数的调用后更新了. 既然闭包是针对变量的并且不仅仅是值的快照, 这些更新将被保存.
 
 Closure is most common when working with asynchronous code, such as with callbacks. Consider:
+当处理异步代码时,闭包是非常普遍的,例如回调函数.
 
 ```js
 function getSomeData(url) {
@@ -286,8 +292,10 @@ getSomeData("https://some.url/wherever");
 ```
 
 The inner function `onResponse(..)` is closed over `url`, and thus preserves and remembers it until the Ajax call returns and executes `onResponse(..)`. Even though `getSomeData(..)` finishes right away, the `url` parameter variable is kept alive in the closure for as long as needed.
+内部函数`onResponse(..)`闭包了`url`, 所以保存并且记住了它直到Ajax调用返回并执行`onResponse(..)`. 即使`getSomeData(..)`立即执行完毕, `url`参数变量在闭包中存在, 直到不再需要为止.
 
 It's not necessary that the outer scope be a function—it usually is, but not always—just that there be at least one variable in an outer scope accessed from an inner function:
+通常外部作用域没必要是一个函数,但是不总是如此-只要至少有一个外部作用域的变量从内部函数访问即可: 
 
 ```js
 for (let [idx,btn] of buttons.entries()) {
@@ -298,26 +306,36 @@ for (let [idx,btn] of buttons.entries()) {
 ```
 
 Because this loop is using `let` declarations, each iteration gets new block-scoped (aka, local) `idx` and `btn` variables;  the loop also creates a new inner `onClick(..)` function each time. That inner function closes over `idx`, preserving it for as long as the click handler is set on the `btn`. So when each button is clicked, its handler can print its associated index value, because the handler remembers its respective `idx` variable.
+因为这个循环使用`let`声明, 每个迭代获取新的块作用域(block-scoped,别名局部变量)`idx`和`btn`变量. 此循环也能每次创建一个新的内部`onClick`函数. 内部函数闭包了`idx`, 保存它直至点击处理器设置到`btn`上. 所以当点击每个按钮时, 按钮的处理器函数可以打印相关联的索引值, 因为处理器直到它各自的`idx`变量.
 
 Remember: this closure is not over the value (like `1` or `3`), but over the variable `idx` itself.
+记住: 这个闭包并不是关于值（比如 1 或 3）的，而是关于变量 idx 本身的。
 
 Closure is one of the most prevalent and important programming patterns in any language. But that's especially true of JS; it's hard to imagine doing anything useful without leveraging closure in one way or another.
+闭包是任何语言中最普遍和重要的编程模式. 在JS中更是如此; 很难想象在不以某种方式利用 Closure 的情况下做任何有用的事情。
 
 If you're still feeling unclear or shaky about closure, the majority of Book 2, *Scope & Closures* is focused on the topic.
+如果你仍然感觉闭包不理解或模糊的, 本书的第2本, *Scope & Closures*主要集中这个主题的.
 
 ## `this` Keyword
 
 One of JS's most powerful mechanisms is also one of its most misunderstood: the `this` keyword. One common misconception is that a function's `this` refers to the function itself. Because of how `this` works in other languages, another misconception is that `this` points the instance that a method belongs to. Both are incorrect.
+JS最强大的机制之一,也是最容易被误解的: `this`关键字. 一个普遍的误解是函数的`this`指向函数自身. 因为在其它语言中`this`就是这样工作的, 另一个误解是`this`指向方法所属的实例. 两者都是不对的.
 
 As discussed previously, when a function is defined, it is *attached* to its enclosing scope via closure. Scope is the set of rules that controls how references to variables are resolved.
+如前所述, 当定义一个函数, 它通过闭包链接到它的封闭作用域中. 作用域是控制变量的引用如何解析的规则集合.
 
 But functions also have another characteristic besides their scope that influences what they can access. This characteristic is best described as an *execution context*, and it's exposed to the function via its `this` keyword.
+但是函数也有另一个特征,除了函数作用域外, 它会影响它们可以访问的内容. 这个特征最好描述为*执行上下文(execution context), 通过它`this`关键字暴露给函数.
 
 Scope is static and contains a fixed set of variables available at the moment and location you define a function, but a function's execution *context* is dynamic, entirely dependent on **how it is called** (regardless of where it is defined or even called from).
+作用域是静态的且包含了一组固定的,在定义一个函数的时刻和位置的可用变量, 但是一个函数的执行*上下文*是动态的, 整体依赖于**函数如何调用**(不管它在哪里定义或者从哪里调用).
 
 `this` is not a fixed characteristic of a function based on the function's definition, but rather a dynamic characteristic that's determined each time the function is called.
+`this`不是一个函数定义时的函数固定特征,而是函数每次调用时的动态特征.
 
 One way to think about the *execution context* is that it's a tangible object whose properties are made available to a function while it executes. Compare that to scope, which can also be thought of as an *object*; except, the *scope object* is hidden inside the JS engine, it's always the same for that function, and its *properties* take the form of identifier variables available inside the function.
+想象*执行上下文*的一种方式是它是一个看得见的对象, 其属性在函数执行时可供函数使用. 和作用域比较, 作用域也能被想成一个*对象*; 除此此外, *作用域对象*是隐藏在JS引擎中的, 对函数来说总是相同的, 作用域的*属性properties*采用函数内部的可用标识符变量的形式.
 
 ```js
 function classroom(teacher) {
@@ -331,12 +349,15 @@ var assignment = classroom("Kyle");
 ```
 
 The outer `classroom(..)` function makes no reference to a `this` keyword, so it's just like any other function we've seen so far. But the inner `study()` function does reference `this`, which makes it a `this`-aware function. In other words, it's a function that is dependent on its *execution context*.
+外部`classroom(..)`函数没有引用`this`关键字, 所以它仅仅是我们最近看的这种函数. 但是内部的`study()`函数引用了`this`, 这使它成了一个`this`-感知的函数. 换句话说, 这是一个依赖于自身*执行上下文*的函数.
 
 | NOTE: |
 | :--- |
-| `study()` is also closed over the `teacher` variable from its outer scope. |
+| `study()` is also closed over the `teacher` variable from its outer scope. 
+`study()`也闭包了`teacher`变量从其外部作用域|
 
 The inner `study()` function returned by `classroom("Kyle")` is assigned to a variable called `assignment`. So how can `assignment()` (aka `study()`) be called?
+内部的`study()`函数通过赋值`classroom("Kyle")`为一个叫做`assignment`变量来返回. 所以`assignment()`(别名 `study()`)如何被调用?
 
 ```js
 assignment();
@@ -344,8 +365,10 @@ assignment();
 ```
 
 In this snippet, we call `assignment()` as a plain, normal function, without providing it any *execution context*.
+在这个代码片段中, 我们调用`assignment()`作为一个干净,普通的函数, 没有提供它任何*执行上下文*.
 
 Since this program is not in strict mode (see Chapter 1, "Strictly Speaking"), context-aware functions that are called **without any context specified** default the context to the global object (`window` in the browser). As there is no global variable named `topic` (and thus no such property on the global object), `this.topic` resolves to `undefined`.
+既然程序不是严格模式(查看Chapter 1, "Strictly Speaking"), 在**没有指定上下文**调用上下文感知函数,默认上下文为全局对象(在浏览器中是`window`). 没有命名为`topic`的全局变量(所以全局对象上没有这样的属性), `this.topic`解析为`undefined`.
 
 Now consider:
 
@@ -360,7 +383,7 @@ homework.assignment();
 ```
 
 A copy of the `assignment` function reference is set as a property on the `homework` object, and then it's called as `homework.assignment()`. That means the `this` for that function call will be the `homework` object. Hence, `this.topic` resolves to `"JS"`.
-
+`assignment`函数引用的拷贝被设置为`homework`对象上的一个属性, 之后作为`homework.assignment()`被调用. 这意味着函数调用的`this`将会是`homework`对象. 所以, `this.topic`会被解析为'JS'.
 Lastly:
 
 ```js
@@ -373,6 +396,7 @@ assignment.call(otherHomework);
 ```
 
 A third way to invoke a function is with the `call(..)` method, which takes an object (`otherHomework` here) to use for setting the `this` reference for the function call. The property reference `this.topic` resolves to `"Math"`.
+调用函数的第三种方式是使用`call(..)`方法, 其将会接收一个对象(这里是`otherHomework`)用作函数调用时设置`this`的引用.`this.topic`属性引用被解析为`Math`.
 
 The same context-aware function invoked three different ways, gives different answers each time for what object `this` will reference.
 
